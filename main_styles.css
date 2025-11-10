@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+img {
+    display: block;
+    width: 100%;
+}
+
+#results-container {
+    position: relative;
+    top: -200px;
+    width: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+.column {
+    width: 18%;
+}
+#column-1 {
+    margin-top: 60px;
+}
+#column-2 {
+    margin-top: 45px;
+}
+#column-3 {
+    margin-top: 30px;
+}
+#column-4 {
+    margin-top: 15px;
+}
+
+
+.char-img {
+    z-index: 2;
+}
+.spare-body-label, .new-char-img {
+    display: inline-block;
+    position: relative;
+}
+.new-char-img, .spare-body-label {
+    left: 50%;
+    width: 50%;
+    z-index: 3;
+}
+.top .new-char-img {
+    top: -254px;
+}
+.top .spare-body-label {
+    top: 454px;
+}
+.bottom .new-char-img {
+    top: -444px;
+}
+.bottom .spare-body-label {
+    top: -244px;
+}
+.sparkle-img-normal {
+    z-index: 1;
+}
+.sparkle-img-reversed {
+    transform: scaleY(-1);
+    top: -77px;
+    z-index: 1;
+}
+
+
+
+#options {
+    width: 500px;
+    margin: auto;
+    position: relative;
+    top: -300px;
+}
+#option-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    color: rgb(255, 255, 255);
+    width: 180px;
+    height: 40px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: larger;
+    font-weight: bold;
+    box-shadow: 0 8px 1px hsla(0, 0%, 33%, 0.212);
+    cursor: pointer;
+}
+#confirm-btn {
+    background-color: rgb(59, 59, 59);
+}
+#recruit-again-btn {
+    background-color: rgb(113, 186, 255);
+}
+#ticket-notification {
+    background-color: rgb(59, 59, 59);
+    width: 25%;
+    height: 26px;
+    margin-top: 12px;
+    margin-left: 60%;
+}
+#ticket-notification img {
+    position: relative;
+    width: 36%;
+    top: -8px;
+    display: inline-block;
+}
+#ticket-notification p {
+    color: rgb(255, 255, 255);
+    margin: 0;
+    display: inline;
+    position: relative;
+    top: -27px;
+    left: 1px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    white-space: pre;
+    cursor: default;
+}
