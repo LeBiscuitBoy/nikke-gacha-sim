@@ -50,7 +50,7 @@ const characters = [
     new Character("Neon", true, Character.Rarities.SR, Character.Manufacturers.Elysion),
     new Character("Rapi", true, Character.Rarities.SR, Character.Manufacturers.Elysion),
     new Character("Delta", true, Character.Rarities.SR, Character.Manufacturers.Elysion),
-    new Character("Anchor", true, Character.Rarities.SR, Character.Manufacturers.Elysion),
+    new Character("Anchor", false, Character.Rarities.SR, Character.Manufacturers.Elysion),
 
     new Character("Anis", true, Character.Rarities.SR, Character.Manufacturers.Tetra),
     new Character("Mica", true, Character.Rarities.SR, Character.Manufacturers.Tetra),
