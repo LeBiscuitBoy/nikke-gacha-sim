@@ -99,4 +99,9 @@ gamble().forEach((c) => {
         char_image.classList.add(top ? "sr-top" : "sr-bottom");
         sparkle.src = `${image_dir}glow_sr.png`;
     }
+
+    if (!hasCharacter(c.name).state)
+        new_char.src = `${image_dir}new_character.png`;
+
+    addCharacterToCollection(c.name);
 });
