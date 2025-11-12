@@ -1,4 +1,5 @@
 import { characters, Character} from './chars.js';
+import { addCharacterToCollection, hasCharacter, getWishList, setWishList, characterOnWishlist } from './savedata.js';
 
 
 // Temporary section for programmatically adding characters to the wishlist.
