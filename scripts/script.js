@@ -7,9 +7,9 @@ import { characters, Character} from './chars.js';
     // Pilgrim/overspec
     setWishlist("Little Mermaid", true);
     setWishlist("Rapi: Red Hood", true);
-    setWishlist("Modernia", true);
-    setWishlist("Scarlet", true);
-    setWishlist("Rapunzel", true);
+    setWishlist("Red Hood", true);
+    setWishlist("Grave", true);
+    setWishlist("Cinderella", true);
 
     // Elysion
     setWishlist("Emma: Tactical Upgrade", true);
@@ -78,7 +78,7 @@ function gamble() {
 
 let i = 1;
 gamble().forEach((c) => {
-    const image_dir = "/images/";
+    const image_dir = "/images/pull_assets/";
 
     const result_container = document.getElementById(`result-${i}`);
     const char_image = result_container.getElementsByClassName("char-img")[0];
