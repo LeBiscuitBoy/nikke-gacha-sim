@@ -19,7 +19,7 @@ import { characters, Character} from './chars.js';
     setWishlist("D: Killer Wife", true);
 
     // Missilis
-    setWishlist("Yuni", true);
+    setWishlist("Elegg", true);
     setWishlist("Maxwell", true);
     setWishlist("Drake", true);
     setWishlist("Laplace", true);
@@ -30,7 +30,7 @@ import { characters, Character} from './chars.js';
     setWishlist("Noir", true);
     setWishlist("Bready", true);
     setWishlist("Crust", true);
-    setWishlist("Yulha", true);
+    setWishlist("Rupee", true);
 }
 
 
@@ -76,5 +76,25 @@ function gamble() {
 }
 
 
-let i = 0;
-gamble().forEach((c) => console.log(`${++i} - ${c.name}: ${c.rarity}`));
+let i = 1;
+gamble().forEach((c) => {
+    const image_dir = "/images/";
+
+    const result_container = document.getElementById(`result-${i}`);
+    const char_image = result_container.getElementsByClassName("char-img")[0];
+    const new_char = result_container.getElementsByClassName("new-char-img")[0];
+    const spare_body = result_container.getElementsByClassName("spare-body-label")[0];
+    const sparkle = result_container.getElementsByClassName("sparkle")[0];
+
+    char_image.src = c.characterImage;
+    char_image.setAttribute("title", c.name);
+    char_image.setAttribute("alt", c.name);
+
+    const top = i++ < 6;
+    if (c.rarity === "SSR") {
+        char_image.classList.add(top ? "ssr-top" : "ssr-bottom");
+        sparkle.src = `${image_dir}glow.png`;
+    }
+    else if (c.rarity === "SR")
+        char_image.classList.add(top ? "sr-top" : "sr-bottom");
+});

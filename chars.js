@@ -16,8 +16,8 @@ class Character {
     get overspec() { return this._overspec };
     get rarity() { return this._rarity };
 
-    get characterImage() { return `/character/${this._getImageDirectoryName()}.png`; }
-    get characterSpareBodyImage() { return `/spare_body/${this._getImageDirectoryName()}.png`; }
+    get characterImage() { return `/images/character/${this._rarity.toLowerCase()}_${this._getImageDirectoryName()}.png`; }
+    get characterSpareBodyImage() { return `/images/spare_body/${this._getImageDirectoryName()}.png`; }
 
     static Rarities = { 
         SSR: "SSR", 
