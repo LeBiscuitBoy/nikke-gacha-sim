@@ -1,5 +1,6 @@
 const keys = {
-    pulledCharacters: "pulled_characters"
+    pulledCharacters: "pulled_characters",
+    wishedCharacters: "wished_characters"
 }
 
 function keyExists(key) {
@@ -9,15 +10,44 @@ function keyExists(key) {
 if (!keyExists(keys.pulledCharacters)) 
     localStorage.setItem(keys.pulledCharacters, 
         JSON.stringify([]));
+if (!keyExists(keys.wishedCharacters)) 
+    localStorage.setItem(keys.wishedCharacters, 
+        JSON.stringify([]));
 
 
-function hasCharacter(character_name) {
-    const character_list = JSON.parse(localStorage.getItem(keys.pulledCharacters));
-    const index_of_char = character_list.findIndex((c) => c.name === character_name);
+
+function setWishList(character_object) {
+    localStorage.setItem(keys.wishedCharacters, 
+        JSON.stringify(character_object));
+}
+function getWishList() { 
+    return JSON.parse(localStorage.getItem(keys.wishedCharacters));
+}
+
+function characterInList(character_name, list) {
+    const index_of_char = list.findIndex((cn) => cn === character_name);
+    
     return { 
         state: (index_of_char !== -1),
         index_of: index_of_char
     };
+}
+
+
+function characterOnWishlist(character_name) {
+    const wl = getWishList();
+    return characterInList(character_name, [
+        ...wl.pilgrim, 
+        ...wl.elysion, 
+        ...wl.missilis, 
+        ...wl.tetra
+    ]).state;
+}
+
+function hasCharacter(character_name) {
+    const character_list = JSON.parse(
+        localStorage.getItem(keys.pulledCharacters)).map((c) => c.name);
+    return characterInList(character_name, character_list);
 }
 
 
@@ -34,10 +64,13 @@ function addCharacterToCollection(character_name) {
         });
     
     localStorage.setItem(keys.pulledCharacters, JSON.stringify(character_list));
-
-    console.clear();
-    console.log(character_list);
 }
 
 
-export { addCharacterToCollection, hasCharacter };
+export { 
+    addCharacterToCollection, 
+    hasCharacter, 
+    getWishList, 
+    setWishList,
+    characterOnWishlist
+};
