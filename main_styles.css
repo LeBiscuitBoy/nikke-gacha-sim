@@ -10,25 +10,35 @@ img {
 #results-container {
     position: relative;
     top: -200px;
-    width: 500px;
+}
+
+#results {
+    min-width: 300px;
+    max-width: 1200px;
+    width: 25%;
     margin: auto;
     display: flex;
     justify-content: space-evenly;
+    position: relative;
+    z-index: -1;
 }
 .column {
     width: 18%;
 }
 #column-1 {
-    margin-top: 60px;
+    margin-top: 18%;
 }
 #column-2 {
-    margin-top: 45px;
+    margin-top: 14%;
 }
 #column-3 {
-    margin-top: 30px;
+    margin-top: 10%;
 }
 #column-4 {
-    margin-top: 15px;
+    margin-top: 6%;
+}
+#column-5 {
+    margin-top: 2%;
 }
 
 
@@ -37,41 +47,43 @@ img {
 }
 .spare-body-label, .new-char-img {
     display: inline-block;
-    position: relative;
+    position: absolute;
 }
 .new-char-img, .spare-body-label {
     left: 50%;
     width: 50%;
     z-index: 3;
 }
+.top {
+    margin-bottom: 50%;
+}
 .top .new-char-img {
-    top: -254px;
+    top: 41%;
 }
 .top .spare-body-label {
-    top: 454px;
+    top: 95%;
 }
 .bottom .new-char-img {
-    top: -444px;
+    top: -2%;
 }
 .bottom .spare-body-label {
-    top: -244px;
+    top: 52%;
 }
 .sparkle-img-normal {
-    z-index: 1;
+    z-index: -1;
 }
 .sparkle-img-reversed {
     transform: scaleY(-1);
     top: -77px;
-    z-index: 1;
+    z-index: -1;
 }
-
 
 
 #options {
     width: 500px;
     margin: auto;
-    position: relative;
-    top: -300px;
+    margin-top: 30px;
+    z-index: 5;
 }
 #option-buttons {
     display: flex;
@@ -89,7 +101,9 @@ button {
     font-weight: bold;
     box-shadow: 0 8px 1px hsla(0, 0%, 33%, 0.212);
     cursor: pointer;
+    z-index: 1;
 }
+
 #confirm-btn {
     background-color: rgb(59, 59, 59);
 }
