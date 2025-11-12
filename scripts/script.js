@@ -1,37 +1,13 @@
 import { characters, Character} from './chars.js';
 
 
-{ // Temporary section for programmatically adding characters to the wishlist.
-    const setWishlist = (name, wish) => characters.find((c) => c.name === name).wishlisted = wish;
-
-    // Pilgrim/overspec
-    setWishlist("Little Mermaid", true);
-    setWishlist("Rapi: Red Hood", true);
-    setWishlist("Red Hood", true);
-    setWishlist("Grave", true);
-    setWishlist("Cinderella", true);
-
-    // Elysion
-    setWishlist("Emma: Tactical Upgrade", true);
-    setWishlist("Eunhwa: Tactical Upgrade", true);
-    setWishlist("Vesti: Tactical Upgrade", true);
-    setWishlist("Privaty", true);
-    setWishlist("D: Killer Wife", true);
-
-    // Missilis
-    setWishlist("Elegg", true);
-    setWishlist("Maxwell", true);
-    setWishlist("Drake", true);
-    setWishlist("Laplace", true);
-    setWishlist("Elegg", true);
-
-    // Tetra
-    setWishlist("Blanc", true);
-    setWishlist("Noir", true);
-    setWishlist("Bready", true);
-    setWishlist("Crust", true);
-    setWishlist("Rupee", true);
-}
+// Temporary section for programmatically adding characters to the wishlist.
+setWishList({
+    pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
+    elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Privaty", "D: Killer Wife"],
+    missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
+    tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
+});
 
 const wl = getWishList();    
 [...wl.pilgrim, ...wl.elysion, ...wl.missilis, ...wl.tetra].forEach((wc) =>
