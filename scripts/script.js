@@ -1,5 +1,6 @@
 import { characters, Character} from './chars.js';
 import { addCharacterToCollection, hasCharacter, getWishList, setWishList, characterOnWishlist } from './savedata.js';
+import { addCharacterToCollection, hasCharacter, getWishList, setWishList } from './savedata.js';
 
 const timeout_delay = 1200;
 setTimeout(() => document.getElementById("options").hidden = false, timeout_delay);
