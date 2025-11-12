@@ -12,9 +12,9 @@ import { characters, Character} from './chars.js';
     setWishlist("Rapunzel", true);
 
     // Elysion
-    setWishlist("Emma", true);
-    setWishlist("Eunhwa", true);
-    setWishlist("Vesti", true);
+    setWishlist("Emma: Tactical Upgrade", true);
+    setWishlist("Eunhwa: Tactical Upgrade", true);
+    setWishlist("Vesti: Tactical Upgrade", true);
     setWishlist("Privaty", true);
     setWishlist("D: Killer Wife", true);
 
@@ -93,8 +93,10 @@ gamble().forEach((c) => {
     const top = i++ < 6;
     if (c.rarity === "SSR") {
         char_image.classList.add(top ? "ssr-top" : "ssr-bottom");
-        sparkle.src = `${image_dir}glow.png`;
+        sparkle.src = `${image_dir}glow_ssr.png`;
     }
-    else if (c.rarity === "SR")
+    else if (c.rarity === "SR") {
         char_image.classList.add(top ? "sr-top" : "sr-bottom");
+        sparkle.src = `${image_dir}glow_sr.png`;
+    }
 });
