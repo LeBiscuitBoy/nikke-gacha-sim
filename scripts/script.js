@@ -1,6 +1,9 @@
 import { characters, Character} from './chars.js';
 import { addCharacterToCollection, hasCharacter, getWishList, setWishList, characterOnWishlist } from './savedata.js';
 
+const timeout_delay = 1200;
+setTimeout(() => document.getElementById("options").hidden = false, timeout_delay);
+
 
 // Temporary section for programmatically adding characters to the wishlist.
 setWishList({
@@ -83,7 +86,13 @@ gamble().forEach((c) => {
     }
 
     if (!hasCharacter(c.name).state)
-        new_char.src = `${image_dir}new_character.png`;
+        setTimeout(() => 
+            new_char.src = `${image_dir}new_character.png`, timeout_delay);
+    else
+        setTimeout(() => {
+            //spare_body.src = `${image_dir}${c.characterSpareBodyImage}`;
+            spare_body.src = `${image_dir}spare_body_temp.png`;
+        }, timeout_delay);
 
     addCharacterToCollection(c.name);
 });
