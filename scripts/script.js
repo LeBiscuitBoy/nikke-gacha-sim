@@ -33,6 +33,11 @@ import { characters, Character} from './chars.js';
     setWishlist("Rupee", true);
 }
 
+const wl = getWishList();    
+[...wl.pilgrim, ...wl.elysion, ...wl.missilis, ...wl.tetra].forEach((wc) =>
+    characters.find((c) => c.name === wc).wishlisted = true
+);
+
 
 const standardPool = characters.filter((c) => 
     (c.isInStandardPool && c.rarity === Character.Rarities.SSR && c.wishlisted) || 
