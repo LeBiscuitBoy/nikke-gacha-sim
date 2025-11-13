@@ -79,11 +79,11 @@ gamble().forEach((c) => {
     char_image.setAttribute("alt", c.name);
 
     const top = i++ < 6;
-    if (c.rarity === "SSR") {
+    if (c.rarity === Character.Rarities.SSR) {
         char_image.classList.add(top ? "ssr-top" : "ssr-bottom");
         sparkle.src = `${image_dir}glow_ssr.png`;
     }
-    else if (c.rarity === "SR") {
+    else if (c.rarity === Character.Rarities.SR) {
         char_image.classList.add(top ? "sr-top" : "sr-bottom");
         sparkle.src = `${image_dir}glow_sr.png`;
     }
