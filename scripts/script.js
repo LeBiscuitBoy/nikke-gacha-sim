@@ -3,7 +3,10 @@ import { addCharacterToCollection, hasCharacter, getWishList, setWishList, chara
 import { addCharacterToCollection, hasCharacter, getWishList, setWishList } from './savedata.js';
 
 const timeout_delay = 1200;
-setTimeout(() => document.getElementById("options").hidden = false, timeout_delay);
+setTimeout(() => {
+    document.getElementById("options").hidden = false;
+    document.getElementById("tickets-gained-box").style.visibility = "visible";
+}, timeout_delay);
 
 
 // Temporary section for programmatically adding characters to the wishlist.
