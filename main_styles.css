@@ -1,3 +1,10 @@
+:root {
+    --shadow: hsla(0, 0%, 33%, 0.212);
+    --info-colour: rgb(59, 59, 59);
+    --white: rgb(255, 255, 255);
+}
+
+
 body {
     margin: 0;
     overflow: hidden;
@@ -99,19 +106,19 @@ button {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: larger;
     font-weight: bold;
-    box-shadow: 0 8px 1px hsla(0, 0%, 33%, 0.212);
+    box-shadow: 0 8px 1px var(--shadow);
     cursor: pointer;
     z-index: 1;
 }
 
 #confirm-btn {
-    background-color: rgb(59, 59, 59);
+    background-color: var(--info-colour);
 }
 #recruit-again-btn {
     background-color: rgb(113, 186, 255);
 }
 #ticket-notification {
-    background-color: rgb(59, 59, 59);
+    background-color: var(--info-colour);
     width: 25%;
     height: 26px;
     margin-top: 12px;
@@ -124,7 +131,7 @@ button {
     display: inline-block;
 }
 #ticket-notification p {
-    color: rgb(255, 255, 255);
+    color: var(--white);
     margin: 0;
     display: inline;
     position: relative;
