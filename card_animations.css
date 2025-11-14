@@ -1,0 +1,58 @@
+:root {
+    --sr-primary-colour: hsl(263, 100%, 69%);
+    --sr-anim-f1-colour: hsl(263, 80%, 63%);
+    --sr-anim-f2-colour: hsl(263, 67%, 70%);
+    --sr-anim-f3-colour: hsl(263, 82%, 51%);
+
+    --ssr-primary-colour: hsl(39, 91%, 64%);
+    --ssr-anim-f1-colour: hsl(39, 91%, 68%);
+    --ssr-anim-f2-colour: hsl(39, 79%, 68%);
+    --ssr-anim-f3-colour: hsl(39, 76%, 75%);
+}
+
+.result-container {
+    position: relative;
+    top: -15%;
+    opacity: 0;
+    animation: move 0.25s;
+    animation-direction: forwards;
+    animation-fill-mode: forwards;
+}
+
+#result-1 {
+    animation-delay: 0.1s;
+}
+#result-2 {
+    animation-delay: 0.2s;
+}
+#result-3 {
+    animation-delay: 0.3s;
+}
+#result-4 {
+    animation-delay: 0.4s;
+}
+#result-5 {
+    animation-delay: 0.5s;
+}
+#result-6 {
+    animation-delay: 0.6s;
+}
+#result-7 {
+    animation-delay: 0.7s;
+}
+#result-8 {
+    animation-delay: 0.8s;
+}
+#result-9 {
+    animation-delay: 0.9s;
+}
+#result-10 {
+    animation-delay: 1s;
+}
+
+@keyframes move {
+    100% {
+        transform: translateY(+30%);
+        opacity: 1;
+    }
+}
