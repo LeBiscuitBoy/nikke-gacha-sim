@@ -1,6 +1,3 @@
-import { characters, Character} from './chars.js';
-
-
 const class_names = {
     sparkle: "sparkle",
     character_card: "character-card",
