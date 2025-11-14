@@ -8,8 +8,6 @@ class Character {
 
         this._imageName = `${this._name}.png`.toLowerCase();
         Character.IllegalImageChars.forEach((c) => this._imageName = this._imageName.replaceAll(c, ""));
-
-        this.wishlisted = false;
     }
 
     get name() { return this._name };
