@@ -6,7 +6,9 @@ class Character {
         this._manufacturer = manufacturer;
         this._overspec = overspec;
 
-        this._getImageDirectoryName = () => this._name.toLowerCase().replaceAll(":", "").replaceAll(" ", "").replaceAll("(", "").replaceAll(")", "");
+        this._imageName = `${this._rarity}_${this._name}.png`.toLowerCase();
+        Character.IllegalImageChars.forEach((c) => this._imageName = this._imageName.replaceAll(c, ""));
+
         this.wishlisted = false;
     }
 
@@ -16,8 +18,10 @@ class Character {
     get overspec() { return this._overspec };
     get rarity() { return this._rarity };
 
-    get characterImage() { return `/images/character/${this._rarity.toLowerCase()}_${this._getImageDirectoryName()}.png`; }
-    get characterSpareBodyImage() { return `/images/spare_body/${this._getImageDirectoryName()}.png`; }
+    get characterImage() { return `/images/character/${this._imageName}`; }
+    get characterSpareBodyImage() { return `/images/spare_body/${this._imageName}`; }
+    get characterProfileImage() { return `/images/profile/${this._imageName}`; }
+
 
     static Rarities = { 
         SSR: "SSR", 
@@ -31,6 +35,7 @@ class Character {
         Pilgrim: "Pilgrim",
         Abnormal: "Abnormal"
     }
+    static IllegalImageChars = [":", " ", "(", ")"];
 }
 
 const characters = [
