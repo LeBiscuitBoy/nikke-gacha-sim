@@ -100,8 +100,8 @@ body {
     display: flex;
     justify-content: space-evenly;
 }
-.option-block a {
-    min-width: 180px;
+.option-block {
+    width: 150px;
     display: inline-block;
 }
 .option-button {
