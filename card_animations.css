@@ -56,3 +56,84 @@
         opacity: 1;
     }
 }
+
+
+.sr-top, .ssr-top, .sr-bottom, .ssr-bottom {
+    animation-delay: 1.5s;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+}
+
+.sr-top {
+    box-shadow: 0 10px 15px var(--sr-primary-colour);
+    animation-name: pulse-purple-top;
+}
+.ssr-top {
+    box-shadow: 0 15px 30px var(--ssr-primary-colour);
+    animation-name: pulse-gold-top;
+}
+.sr-bottom {
+    box-shadow: 0 -10px 15px var(--sr-primary-colour);
+    animation-name: pulse-purple-bottom;
+}
+.ssr-bottom{
+    box-shadow: 0 -15px 30px var(--ssr-primary-colour);
+    animation-name: pulse-gold-bottom;
+}
+
+@keyframes pulse-purple-top {
+    25% {
+        box-shadow: 0 15px 15px var(--sr-anim-f1-colour),
+              inset 0 15px 15px var(--sr-anim-f1-colour);
+    }
+    50% {
+        box-shadow: 0 20px 15px var(--sr-anim-f2-colour),
+              inset 0 20px 15px var(--sr-anim-f2-colour);
+    }
+    75% {
+        box-shadow: 0 10px 15px var(--sr-anim-f3-colour),
+              inset 0 10px 15px var(--sr-anim-f3-colour);
+    }
+}
+@keyframes pulse-gold-top {
+    25% {
+        box-shadow: 0 15px 20px var(--ssr-anim-f1-colour),
+              inset 0 15px 20px var(--ssr-anim-f1-colour);
+    }
+    50% {
+        box-shadow: 0 15px 30px var(--ssr-anim-f2-colour),
+              inset 0 15px 30px var(--ssr-anim-f2-colour);
+    }
+    75% {
+        box-shadow: 0 15px 25px var(--ssr-anim-f3-colour),
+              inset 0 15px 25px var(--ssr-anim-f3-colour);
+    }
+}
+@keyframes pulse-purple-bottom {
+    25% {
+        box-shadow: 0 -15px 15px var(--sr-anim-f1-colour),
+              inset 0 -15px 15px var(--sr-anim-f1-colour);
+    }
+    50% {
+        box-shadow: 0 -20px 15px var(--sr-anim-f2-colour),
+              inset 0 -20px 15px var(--sr-anim-f2-colour);
+    }
+    75% {
+        box-shadow: 0 -10px 15px var(--sr-anim-f3-colour),
+              inset 0 -10px 15px var(--sr-anim-f3-colour);
+    }
+}
+@keyframes pulse-gold-bottom {
+    25% {
+        box-shadow: 0 -15px 20px var(--ssr-anim-f1-colour),
+              inset 0 -15px 20px var(--ssr-anim-f1-colour);
+    }
+    50% {
+        box-shadow: 0 -15px 30px var(--ssr-anim-f2-colour),
+              inset 0 -15px 30px var(--ssr-anim-f2-colour);
+    }
+    75% {
+        box-shadow: 0 -15px 25px var(--ssr-anim-f3-colour),
+              inset 0 -15px 25px var(--ssr-anim-f3-colour);
+    }
+}
