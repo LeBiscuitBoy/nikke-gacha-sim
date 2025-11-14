@@ -6,7 +6,7 @@ class Character {
         this._manufacturer = manufacturer;
         this._overspec = overspec;
 
-        this._imageName = `${this._rarity}_${this._name}.png`.toLowerCase();
+        this._imageName = `${this._name}.png`.toLowerCase();
         Character.IllegalImageChars.forEach((c) => this._imageName = this._imageName.replaceAll(c, ""));
 
         this.wishlisted = false;
@@ -18,7 +18,7 @@ class Character {
     get overspec() { return this._overspec };
     get rarity() { return this._rarity };
 
-    get characterCardImage() { return `${Character.ImageUrlPrefix}/card/${this._imageName}`; }
+    get characterCardImage() { return `${Character.ImageUrlPrefix}/card/${this._rarity.toLowerCase()}_${this._imageName}`; }
     get characterSpareBodyImage() { return `${Character.ImageUrlPrefix}/spare_body/${this._imageName}`; }
     get characterProfileImage() { return `${Character.ImageUrlPrefix}/profile/${this._imageName}`; }
 
