@@ -24,7 +24,7 @@ const roundToNearestHalf = (num) => {
 }
 
 function special_pull(rate_up_character, is_ten_pull = true) {
-    return "NOT YET IMPLEMENTED";
+    console.log("NOT YET IMPLEMENTED");
 }
 
 function standard_pull(is_ten_pull = true) {

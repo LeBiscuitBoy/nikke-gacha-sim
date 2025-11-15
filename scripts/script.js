@@ -1,5 +1,5 @@
-import { Character } from './chars.js';
-import { result_elements, standard_pull  } from './gacha.js';
+import { Character, characters } from './chars.js';
+import { result_elements, standard_pull, special_pull  } from './gacha.js';
 import { hasCharacter, addCharacterToCollection, getCharacterPullCount, setWishList } from './savedata.js';
 
 
@@ -61,12 +61,25 @@ setWishList({
 });
 
 
+const query_paramaters = new URLSearchParams(window.location.search);
+const banner_parameters = {
+    IsSinglePull: query_paramaters.has("singlepull"),
+    GetRateUpCharacter: () => {
+        const param = "character";
+        const char = query_paramaters.has(param) ? characters.find((c) => c.name.toLowerCase() === query_paramaters.get(param).toLowerCase()) : null;
+        return char != null ? char.name : null;
+    }
+};
 
-const pulls = standard_pull(true);
-for (let i = 0; i < 10; i++) {
-    const element = result_elements[i];
-    const character = pulls[i];
+const pulls = banner_parameters.GetRateUpCharacter() == null ? 
+    standard_pull(!banner_parameters.IsSinglePull) : 
+    special_pull(banner_parameters.GetRateUpCharacter(), !banner_parameters.IsSinglePull);
 
-    setCardElementDetail(element, character);
-    addCharacterToCollection(character.name);
-}
+if (!banner_parameters.IsSinglePull)
+    for (let i = 0; i < 10; i++) {
+        const element = result_elements[i];
+        const character = pulls[i];
+
+        setCardElementDetail(element, character);
+        addCharacterToCollection(character.name);
+    }
