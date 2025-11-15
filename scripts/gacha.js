@@ -13,4 +13,14 @@ const result_elements = Array.from(document.getElementsByClassName("result-conta
 }).sort((l, r) => l.id - r.id);
 
 
+const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const roundToNearestHalf = (num) => {
+    const flooredNum = Math.floor(num);
+    const decimalPortion = Math.abs(num - flooredNum);
+
+    if (decimalPortion > 0.75) return flooredNum + 1;
+    if (decimalPortion > 0.25) return flooredNum + 0.5;
+    return flooredNum;
+}
+
 export { result_elements };
