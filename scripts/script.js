@@ -1,6 +1,6 @@
 import { Character } from './chars.js';
 import { result_elements, standard_pull  } from './gacha.js';
-import { hasCharacter, addCharacterToCollection, setWishList, getPullList } from './savedata.js';
+import { hasCharacter, addCharacterToCollection, setWishList, getCharacterPullCount } from './savedata.js';
 
 
 function setElementDetail(element, character) {
@@ -19,7 +19,7 @@ function setElementDetail(element, character) {
     element.sparkle.src = getGlowAsset();
     element.character_card.src = `${char_url_prefix}/${character.characterCardImage}`;
     element.character_card.title = character.name;
-    
+
     if (character.rarity !== Character.Rarities.R) {
         const addClass = (top, bottom) => element.character_card.classList.add(element.id <= 5 ? top : bottom);
         
@@ -29,15 +29,26 @@ function setElementDetail(element, character) {
             addClass("ssr-top", "ssr-bottom");
     }
 
-    if (hasCharacter(character.name)) {
-        element.spare_body.src = `${char_url_prefix}/${character.characterSpareBodyImage}`;
-        element.spare_body.title = `${character.name}'s Spare Body`;
+    if (hasCharacter(character.name).state) {
+        const showSpareBody = (rarity, pull_count) => 
+            (rarity === Character.Rarities.R && pull_count <= 2) || 
+            (rarity === Character.Rarities.SR && pull_count <= 3) || 
+            (rarity === Character.Rarities.SSR && pull_count <= 11);
+
+        if (showSpareBody(character.rarity, getCharacterPullCount(character.name))) {
+            element.spare_body.src = `${char_url_prefix}/${character.characterSpareBodyImage}`;
+            element.spare_body.title = `${character.name}'s Spare Body`;
+        }
+        else {
+            element.spare_body.src = "";
+            element.spare_body.title = "";
+        }
 
         element.new_character.src = "";
         element.new_character.title = "";
     }
     else {
-        element.spare_body.src = `${asset_url_prefix}/new_body_empty.png`;
+        element.spare_body.src = "";//`${asset_url_prefix}/new_body_empty.png`;
         element.spare_body.title = "";
         
         element.new_character.src = `${asset_url_prefix}/new_character.png`;
