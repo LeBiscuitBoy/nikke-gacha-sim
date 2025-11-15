@@ -3,7 +3,7 @@ import { result_elements, standard_pull  } from './gacha.js';
 import { hasCharacter, addCharacterToCollection, setWishList, getCharacterPullCount } from './savedata.js';
 
 
-function setElementDetail(element, character) {
+function setCardElementDetail(element, character) {
     const asset_url_prefix = "images/pull_assets";
     const char_url_prefix = "images/character";
 
@@ -15,10 +15,13 @@ function setElementDetail(element, character) {
         else
             return `${asset_url_prefix}/glow_ssr.png`;
     }
+    function setImageDetail(img, source = "", title = "") {
+        img.src = source;
+        img.title = title;
+    }
 
-    element.sparkle.src = getGlowAsset();
-    element.character_card.src = `${char_url_prefix}/${character.characterCardImage}`;
-    element.character_card.title = character.name;
+    setImageDetail(element.sparkle, getGlowAsset());
+    setImageDetail(element.character_card, `${char_url_prefix}/${character.characterCardImage}`, character.name);
 
     if (character.rarity !== Character.Rarities.R) {
         const addClass = (top, bottom) => element.character_card.classList.add(element.id <= 5 ? top : bottom);
@@ -29,30 +32,22 @@ function setElementDetail(element, character) {
             addClass("ssr-top", "ssr-bottom");
     }
 
+
     if (hasCharacter(character.name).state) {
         const showSpareBody = (rarity, pull_count) => 
             (rarity === Character.Rarities.R && pull_count <= 2) || 
             (rarity === Character.Rarities.SR && pull_count <= 3) || 
             (rarity === Character.Rarities.SSR && pull_count <= 11);
 
-        if (showSpareBody(character.rarity, getCharacterPullCount(character.name))) {
-            element.spare_body.src = `${char_url_prefix}/${character.characterSpareBodyImage}`;
-            element.spare_body.title = `${character.name}'s Spare Body`;
-        }
-        else {
-            element.spare_body.src = "";
-            element.spare_body.title = "";
-        }
-
-        element.new_character.src = "";
-        element.new_character.title = "";
+        setImageDetail(element.new_character);
+        if (showSpareBody(character.rarity, getCharacterPullCount(character.name)))
+            setImageDetail(element.spare_body, `${char_url_prefix}/${character.characterSpareBodyImage}`, `${character.name}'s Spare Body`);
+        else
+            setImageDetail(element.spare_body);
     }
     else {
-        element.spare_body.src = "";//`${asset_url_prefix}/new_body_empty.png`;
-        element.spare_body.title = "";
-        
-        element.new_character.src = `${asset_url_prefix}/new_character.png`;
-        element.new_character.title = "New!";
+        setImageDetail(element.spare_body);
+        setImageDetail(element.new_character, `${asset_url_prefix}/new_character.png`, "New!");
     }
 };
 
@@ -72,6 +67,6 @@ for (let i = 0; i < 10; i++) {
     const element = result_elements[i];
     const character = pulls[i];
 
-    setElementDetail(element, character);
+    setCardElementDetail(element, character);
     addCharacterToCollection(character.name);
 }
