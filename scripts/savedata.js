@@ -17,8 +17,7 @@ if (!keyExists(keys.wishedCharacters))
 
 
 function setWishList(character_object) {
-    localStorage.setItem(keys.wishedCharacters, 
-        JSON.stringify(character_object));
+    localStorage.setItem(keys.wishedCharacters, JSON.stringify(character_object));
 }
 function getWishList() { 
     return JSON.parse(localStorage.getItem(keys.wishedCharacters));
@@ -35,7 +34,10 @@ function characterInList(character_name, list) {
         index_of: index_of_char
     };
 }
-
+function getCharacterPullCount(character_name) {
+    const character = getPullList().find((c) => c.name === character_name);
+    return character === null ? 0 : character.count;
+}
 
 function characterOnWishlist(character_name) {
     const wl = getWishList();
@@ -48,15 +50,13 @@ function characterOnWishlist(character_name) {
 }
 
 function hasCharacter(character_name) {
-    const character_list = JSON.parse(
-        localStorage.getItem(keys.pulledCharacters)).map((c) => c.name);
-    return characterInList(character_name, character_list).state;
+    const character_list = getPullList().map((c) => c.name);
+    return characterInList(character_name, character_list);
 }
-
 
 function addCharacterToCollection(character_name) {
     const has_character = hasCharacter(character_name);
-    const character_list = JSON.parse(localStorage.getItem(keys.pulledCharacters));
+    const character_list = getPullList();
 
     if (has_character.state)
         character_list[has_character.index_of].count += 1;
@@ -76,5 +76,6 @@ export {
     getWishList, 
     setWishList,
     characterOnWishlist,
-    getPullList
+    getPullList,
+    getCharacterPullCount
 };
