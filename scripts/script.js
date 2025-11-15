@@ -1,6 +1,6 @@
 import { Character } from './chars.js';
 import { result_elements, standard_pull  } from './gacha.js';
-import { hasCharacter, addCharacterToCollection, setWishList, getCharacterPullCount } from './savedata.js';
+import { hasCharacter, addCharacterToCollection, getCharacterPullCount, setWishList } from './savedata.js';
 
 
 function setCardElementDetail(element, character) {
