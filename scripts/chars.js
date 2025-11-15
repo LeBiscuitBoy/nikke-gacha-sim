@@ -16,9 +16,9 @@ class Character {
     get overspec() { return this._overspec };
     get rarity() { return this._rarity };
 
-    get characterCardImage() { return `${Character.ImageUrlPrefix}/card/${this._rarity.toLowerCase()}_${this._imageName}`; }
-    get characterSpareBodyImage() { return `${Character.ImageUrlPrefix}/spare_body/${this._imageName}`; }
-    get characterProfileImage() { return `${Character.ImageUrlPrefix}/profile/${this._imageName}`; }
+    get characterCardImage() { return `card/${this._rarity.toLowerCase()}_${this._imageName}`; }
+    get characterSpareBodyImage() { return `spare_body/${this._imageName}`; }
+    get characterProfileImage() { return `profile/${this._imageName}`; }
 
 
     static Rarities = { 
@@ -33,7 +33,6 @@ class Character {
         Pilgrim: "Pilgrim",
         Abnormal: "Abnormal"
     }
-    static ImageUrlPrefix = "/images/character";
     static IllegalImageChars = [":", " ", "(", ")"];
 }
 
