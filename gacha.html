@@ -83,11 +83,11 @@
         </div>
         <div id="reroll-options">
             <div id="reroll-option-blocks">
-                <div id="left-option-block" class="option-block">
+                <div id="left-option-block" onclick="localStorage.clear()" class="option-block">
                     <button id="confirm-button" class="option-button">Confirm</button>
                 </div>
                 <div id="right-option-block" class="option-block">
-                    <button id="recruit-again-button" class="option-button" onclick="">Recruit Again</button>
+                    <button id="recruit-again-button" class="option-button" onclick="location.reload()">Recruit Again</button>
                     <div id="reroll-spend-notification" class="notification">
                         <img id="reroll-currency" src="images/pull_assets/currency/standard_recruit_ticket.webp" title="Normal Recruit">
                         <p id="multiplier">X</p>
@@ -101,5 +101,6 @@
         <img id="gained-ticket-image" src="images/pull_assets/currency/silver_mileage_ticket.webp" title="Normal Recruit">
         <p id="">+10</p>
     </div>
+    <script type="module" src="scripts/script.js"></script>
 </body>
 </html>
