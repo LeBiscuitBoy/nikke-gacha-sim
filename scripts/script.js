@@ -66,7 +66,9 @@ const banner_parameters = {
     IsSinglePull: query_paramaters.has("singlepull"),
     GetRateUpCharacter: () => {
         const param = "character";
-        const char = query_paramaters.has(param) ? characters.find((c) => c.name.toLowerCase() === query_paramaters.get(param).toLowerCase()) : null;
+        const char = query_paramaters.has(param) ? characters.find((c) => 
+            c.name.toLowerCase() === query_paramaters.get(param).toLowerCase() &&
+            c.rarity == Character.Rarities.SSR) : null;
         return char != null ? char.name : null;
     }
 };
@@ -83,3 +85,7 @@ if (!banner_parameters.IsSinglePull)
         setCardElementDetail(element, character);
         addCharacterToCollection(character.name);
     }
+else {
+    setCardElementDetail(result_elements[0], pulls);
+    addCharacterToCollection(pulls.name);
+}
