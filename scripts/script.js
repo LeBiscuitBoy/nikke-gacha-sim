@@ -1,7 +1,19 @@
 import { Character, characters } from './chars.js';
-import { result_elements, standard_pull, special_pull  } from './gacha.js';
+import { result_elements, lineup_elements, standard_pull, special_pull  } from './gacha.js';
 import { hasCharacter, addCharacterToCollection, getCharacterPullCount, setWishList } from './savedata.js';
 
+
+const query_parameters = new URLSearchParams(window.location.search);
+const banner_parameters = {
+    IsSinglePull: query_parameters.has("singlepull"),
+    GetRateUpCharacter: () => {
+        const param = "character";
+        const char = query_parameters.has(param) ? characters.find((c) => 
+            c.name.toLowerCase() === query_parameters.get(param).toLowerCase() &&
+            c.rarity == Character.Rarities.SSR) : null;
+        return char != null ? char.name : null;
+    }
+};
 
 function setCardElementDetail(element, character) {
     const asset_url_prefix = "images/pull_assets";
@@ -61,17 +73,6 @@ setWishList({
 });
 
 
-const query_paramaters = new URLSearchParams(window.location.search);
-const banner_parameters = {
-    IsSinglePull: query_paramaters.has("singlepull"),
-    GetRateUpCharacter: () => {
-        const param = "character";
-        const char = query_paramaters.has(param) ? characters.find((c) => 
-            c.name.toLowerCase() === query_paramaters.get(param).toLowerCase() &&
-            c.rarity == Character.Rarities.SSR) : null;
-        return char != null ? char.name : null;
-    }
-};
 
 const pulls = banner_parameters.GetRateUpCharacter() == null ? 
     standard_pull(!banner_parameters.IsSinglePull) : 
@@ -89,3 +90,24 @@ else {
     setCardElementDetail(result_elements[0], pulls);
     addCharacterToCollection(pulls.name);
 }
+
+
+let pull = 0;
+const id = setInterval(() => {
+    const getIconForRarity = (type) => `images/pull_assets/lineup/${type.toLowerCase()}.png`;
+    const element = lineup_elements[pull];
+
+    element.icon.src = getIconForRarity(pulls[pull].rarity);
+    element.self.style.visibility = "visible";
+    element.glow.style.visibility = pulls[pull].rarity === Character.Rarities.SSR 
+        ? "visible" : "hidden";
+    
+    pull += 1;
+    if (pull === 10) {
+        clearInterval(id);
+        setTimeout(() => {
+            document.getElementById("lineup").style.display = "none";
+            document.getElementById("gacha").style.display = "block";
+        }, 500);
+    }
+}, 55);

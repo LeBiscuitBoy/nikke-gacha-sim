@@ -2,6 +2,14 @@ import { Character, characters } from './chars.js';
 import { characterOnWishlist } from './savedata.js';
 
 
+const lineup_elements = Array.from(document.getElementsByClassName("result-icon")).map((e) => {
+    return {
+        id: parseInt(e.id.substring(e.id.lastIndexOf("-") + 1)),
+        self: e,
+        icon: e.getElementsByClassName("icon-figure")[0],
+        glow: e.getElementsByClassName("icon-glow")[0]
+    }
+});
 const result_elements = Array.from(document.getElementsByClassName("result-container")).map((p) => {
     return {
         id: parseInt(p.id.substring(p.id.indexOf("-") + 1)),
@@ -70,4 +78,4 @@ function standard_pull(is_ten_pull = true) {
 }
 
 
-export { result_elements, standard_pull, special_pull };
+export { result_elements, lineup_elements, standard_pull, special_pull };
