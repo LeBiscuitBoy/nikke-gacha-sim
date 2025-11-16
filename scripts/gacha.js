@@ -66,12 +66,12 @@ function special_pull(rate_up_character, is_ten_pull = true) {
         SSR: {
             Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && !isSpecial(c) &&
                 c.name !== rate_up_character.name),
-            Rate: isSpecial(rate_up_character) ? 2 : 1.5
+            Rate: isSpecial(rate_up_character) ? 2.5 : 1.75
         },
         Special: {
             Characters : characters.filter((c) => c.rarity === Character.Rarities.SSR && 
                 c.isInStandardPool && isSpecial(c) && c.name !== rate_up_character.name),
-            Rate: isSpecial(rate_up_character) ? 1 : 0.5
+            Rate: isSpecial(rate_up_character) ? 0.5 : 0.25
         },
         RateUp: {
             Character: rate_up_character,
@@ -80,11 +80,11 @@ function special_pull(rate_up_character, is_ten_pull = true) {
     };
 
     if (!is_ten_pull)
-        return [ get_character_from_pool(pools, roundToNearestHalf(Math.random() * 100), true) ];
+        return [ get_character_from_pool(pools, Math.random() * 100, true) ];
 
     let pulls = [];
     for (let r = 0; r < 10; r++)
-        pulls.push(get_character_from_pool(pools, roundToNearestHalf(Math.random() * 100), true));
+        pulls.push(get_character_from_pool(pools, Math.random() * 100, true));
 
     return pulls;
 }
