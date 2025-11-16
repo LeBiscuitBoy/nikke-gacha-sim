@@ -9,9 +9,9 @@ const banner_parameters = {
     GetRateUpCharacter: () => {
         const param = "character";
         const char = query_parameters.has(param) ? characters.find((c) => 
-            c.name.toLowerCase() === query_parameters.get(param).toLowerCase() &&
+            c.bannerName === query_parameters.get(param).toLowerCase() &&
             c.rarity == Character.Rarities.SSR) : null;
-        return char != null ? char.name : null;
+        return char != null ? char : null;
     }
 };
 

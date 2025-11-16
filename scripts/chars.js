@@ -1,13 +1,15 @@
 class Character {
-    constructor(name, isInStandardPool, rarity, manufacturer, overspec = false) {
+    constructor(name, is_in_standard_pool, rarity, manufacturer, overspec = false, has_banner = false) {
         this._name = name;
-        this._isInStandardPool = isInStandardPool;
+        this._isInStandardPool = is_in_standard_pool;
         this._rarity = rarity;
         this._manufacturer = manufacturer;
         this._overspec = overspec;
+        this._hasBanner = has_banner;
 
         this._imageName = `${this._name}.png`.toLowerCase();
         Character.IllegalImageChars.forEach((c) => this._imageName = this._imageName.replaceAll(c, ""));
+        this._bannerName = `${this._imageName.replace(".png", "")}`;
     }
 
     get name() { return this._name };
@@ -19,6 +21,7 @@ class Character {
     get characterCardImage() { return `card/${this._rarity.toLowerCase()}_${this._imageName}`; }
     get characterSpareBodyImage() { return `spare_body/${this._imageName}`; }
     get characterProfileImage() { return `profile/${this._imageName}`; }
+    get bannerName() { return this._bannerName; }
 
 
     static Rarities = { 
