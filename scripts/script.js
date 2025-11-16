@@ -112,9 +112,9 @@ const id = setInterval(() => {
             const getScreenImage = () => {
                 const prefix = "images/pull_assets/gachascreen-";
 
-                if (window.innerWidth < 600) 
+                if (window.innerWidth < 800) 
                     return `${prefix}small.png`;
-                else if (window.innerWidth < 1000) 
+                else if (window.innerWidth < 1200) 
                     return `${prefix}medium.png`;
                 else 
                     return `${prefix}large.png`;
