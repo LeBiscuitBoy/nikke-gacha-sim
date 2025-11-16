@@ -108,6 +108,7 @@ const id = setInterval(() => {
         setTimeout(() => {
             document.getElementById("lineup").style.display = "none";
             document.getElementById("gacha").style.display = "block";
-        }, 500);
+            document.getElementsByTagName("body")[0].style.backgroundColor = "white";
+        }, 1000);
     }
 }, 55);

@@ -1,8 +1,15 @@
+:root {
+    --grow_scale: 110%;
+    --shrink_scale: 105%;
+}
+
 #gacha {
     display: none;
 }
 
-
+body {
+    background-color: rgb(22, 22, 22);
+}
 
 img {
     display: block;
@@ -21,6 +28,8 @@ img {
     display: flex;
     justify-content: space-evenly;
     height: 100%;
+    animation: scale 1.3s;
+    animation-fill-mode: forwards;
 }
 .result-icon {
     width: 10%;
@@ -37,4 +46,16 @@ img {
 .icon-glow {
     height: 100%;
     opacity: 0.75;
+}
+
+
+@keyframes scale {
+    90% {
+        transform: scale(var(--grow_scale), var(--grow_scale));
+        opacity: 1;
+    }
+    100% {
+        transform: scale(var(--shrink_scale), var(--shrink_scale));
+        opacity: 0;
+    }
 }
