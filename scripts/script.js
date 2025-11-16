@@ -79,7 +79,7 @@ const pulls = banner_parameters.GetRateUpCharacter() == null ?
     special_pull(banner_parameters.GetRateUpCharacter(), !banner_parameters.IsSinglePull);
 
 if (!banner_parameters.IsSinglePull)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < pulls.length; i++) {
         const element = result_elements[i];
         const character = pulls[i];
 
@@ -87,8 +87,8 @@ if (!banner_parameters.IsSinglePull)
         addCharacterToCollection(character.name);
     }
 else {
-    setCardElementDetail(result_elements[0], pulls);
-    addCharacterToCollection(pulls.name);
+    setCardElementDetail(result_elements[0], pulls[0]);
+    addCharacterToCollection(pulls[0].name);
 }
 
 
@@ -103,7 +103,7 @@ const id = setInterval(() => {
         ? "visible" : "hidden";
     
     pull += 1;
-    if (pull === 10) {
+    if (pull === pulls.length) {
         clearInterval(id);
         setTimeout(() => {
             document.getElementById("lineup").style.display = "none";

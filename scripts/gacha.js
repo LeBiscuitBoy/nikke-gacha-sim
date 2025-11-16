@@ -69,7 +69,7 @@ function standard_pull(is_ten_pull = true) {
 
 
     if (!is_ten_pull)
-        return get_character(roundToNearestHalf(Math.random() * 100));
+        return [ get_character(roundToNearestHalf(Math.random() * 100)) ];
 
     let pulls = [];
     for (let r = 0; r < 10; r++)
