@@ -10,6 +10,21 @@
 body {
     margin: 0;
     overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#gacha {
+    opacity: 0;
+    animation: materialise 0.5s;
+    animation-fill-mode: forwards;
+}
+@keyframes materialise {
+    100% {
+        opacity: 1;
+    }
 }
 
 #gacha-result-container {
