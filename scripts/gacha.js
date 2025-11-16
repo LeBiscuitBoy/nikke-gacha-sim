@@ -70,7 +70,7 @@ function special_pull(rate_up_character, is_ten_pull = true) {
         },
         Special: {
             Characters : characters.filter((c) => c.rarity === Character.Rarities.SSR && 
-                c.isInStandardPool && isSpecial(c)),
+                c.isInStandardPool && isSpecial(c) && c.name !== rate_up_character.name),
             Rate: isSpecial(rate_up_character) ? 1 : 0.5
         },
         RateUp: {
