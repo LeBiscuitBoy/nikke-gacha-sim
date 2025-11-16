@@ -108,7 +108,18 @@ const id = setInterval(() => {
         setTimeout(() => {
             document.getElementById("lineup").style.display = "none";
             document.getElementById("gacha").style.display = "block";
-            document.getElementsByTagName("body")[0].style.backgroundColor = "white";
+
+            const getScreenImage = () => {
+                const prefix = "images/pull_assets/gachascreen-";
+
+                if (window.innerWidth < 600) 
+                    return `${prefix}small.png`;
+                else if (window.innerWidth < 1000) 
+                    return `${prefix}medium.png`;
+                else 
+                    return `${prefix}large.png`;
+            };
+            document.getElementsByTagName("body")[0].style.backgroundImage = `url(${getScreenImage()})`;
         }, 1000);
     }
 }, 55);
