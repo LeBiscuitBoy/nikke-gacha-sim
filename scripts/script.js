@@ -10,7 +10,8 @@ const banner_parameters = {
         const param = "character";
         const char = query_parameters.has(param) ? characters.find((c) => 
             c.bannerName === query_parameters.get(param).toLowerCase() &&
-            c.rarity == Character.Rarities.SSR) : null;
+            c.rarity == Character.Rarities.SSR && 
+            c.hasBanner) : null;
         return char != null ? char : null;
     }
 };
