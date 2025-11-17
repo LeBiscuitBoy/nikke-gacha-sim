@@ -130,6 +130,10 @@ const is_rate_up = (rate_up_character != null);
 
         setCardElementDetail(result_elements[0], pulls[0], true);
         addCharacterToCollection(pulls[0].name);
+
+        // Temporarily update currency quantities until currency is properly implemented.
+        document.getElementById("quantity").innerText = 1;
+        document.getElementById("gained-mileage-quantity").innerText = "+1";
     }
 
 
