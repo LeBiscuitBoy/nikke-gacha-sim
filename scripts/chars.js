@@ -79,6 +79,7 @@ const characters = [
 
     new Character("2B", false, Character.Rarities.SSR, Character.Manufacturers.Abnormal, false, true),
     new Character("A2", false, Character.Rarities.SSR, Character.Manufacturers.Abnormal, false, true),
+    new Character("Rem", false, Character.Rarities.SSR, Character.Manufacturers.Abnormal, false, true),
     new Character("Ada", false, Character.Rarities.SSR, Character.Manufacturers.Abnormal, false, true),
     new Character("Ada", false, Character.Rarities.SSR, Character.Manufacturers.Abnormal, false, true),
     new Character("EVE", false, Character.Rarities.SSR, Character.Manufacturers.Abnormal, false, true),

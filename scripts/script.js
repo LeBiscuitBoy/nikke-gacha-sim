@@ -7,7 +7,7 @@ import { hasCharacter, addCharacterToCollection, getCharacterPullCount, setWishL
 // Temporary section for programmatically adding characters to the wishlist.
 setWishList({
     Pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
-    Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Privaty", "D: Killer Wife"],
+    Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Guillotine", "D: Killer Wife"],
     Missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
     Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
 });
@@ -171,4 +171,3 @@ const is_rate_up = (rate_up_character != null);
 }
 
 
-console.log(banner_parameters.GetRateUpCharacter());
