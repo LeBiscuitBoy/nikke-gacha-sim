@@ -13,6 +13,7 @@ const lineup_elements = Array.from(document.getElementsByClassName("result-icon"
 const result_elements = Array.from(document.getElementsByClassName("result-container")).map((p) => {
     return {
         id: parseInt(p.id.substring(p.id.indexOf("-") + 1)),
+        self: p,
         sparkle: p.getElementsByClassName("sparkle")[0],
         character_card: p.getElementsByClassName("character-card")[0],
         spare_body: p.getElementsByClassName("spare-body")[0],

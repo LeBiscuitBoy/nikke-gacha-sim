@@ -32,7 +32,7 @@ function setImageDetail(img, source = "", title = "") {
     img.title = title;
 }
 
-function setCardElementDetail(element, character) {
+function setCardElementDetail(element, character, from_single_pull = false) {
     const asset_url_prefix = "images/pull_assets";
     const char_url_prefix = "images/character";
 
@@ -47,6 +47,18 @@ function setCardElementDetail(element, character) {
 
     setImageDetail(element.sparkle, getGlowAsset());
     setImageDetail(element.character_card, `${char_url_prefix}/${character.characterCardImage}`, character.name);
+
+    if (from_single_pull) {
+        const bottom_glow = new Image();
+        bottom_glow.src = getGlowAsset();
+        bottom_glow.style.position = "relative";
+        bottom_glow.style.zIndex = "-1";
+        bottom_glow.style.transform = "scaleY(-1)";
+        element.self.appendChild(bottom_glow);
+
+        element.new_character.style.top = "29%";
+        element.spare_body.style.bottom = "27%";
+    }
 
     if (character.rarity !== Character.Rarities.R) {
         const addClass = (top, bottom) => element.character_card.classList.add(element.id <= 5 ? top : bottom);
@@ -108,7 +120,15 @@ const is_rate_up = (rate_up_character != null);
             addCharacterToCollection(character.name);
         }
     else {
-        setCardElementDetail(result_elements[0], pulls[0]);
+        lineup_elements.filter((l) => l.id > 1).forEach((l) => l.self.remove());
+        result_elements.filter((e) => e.id > 1).forEach((e) => {
+            if (e.id !== 6)
+                e.self.parentElement.remove();
+            else
+                e.self.remove();
+        });
+
+        setCardElementDetail(result_elements[0], pulls[0], true);
         addCharacterToCollection(pulls[0].name);
     }
 
