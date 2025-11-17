@@ -3,6 +3,17 @@ import { result_elements, lineup_elements, standard_pull, special_pull  } from '
 import { hasCharacter, addCharacterToCollection, getCharacterPullCount, setWishList } from './savedata.js';
 
 
+
+// Temporary section for programmatically adding characters to the wishlist.
+setWishList({
+    Pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
+    Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Privaty", "D: Killer Wife"],
+    Missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
+    Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
+});
+
+
+
 const query_parameters = new URLSearchParams(window.location.search);
 const banner_parameters = {
     IsSinglePull: query_parameters.has("singlepull"),
@@ -16,6 +27,11 @@ const banner_parameters = {
     }
 };
 
+function setImageDetail(img, source = "", title = "") {
+    img.src = source;
+    img.title = title;
+}
+
 function setCardElementDetail(element, character) {
     const asset_url_prefix = "images/pull_assets";
     const char_url_prefix = "images/character";
@@ -27,10 +43,6 @@ function setCardElementDetail(element, character) {
             return `${asset_url_prefix}/glow_sr.png`;
         else
             return `${asset_url_prefix}/glow_ssr.png`;
-    }
-    function setImageDetail(img, source = "", title = "") {
-        img.src = source;
-        img.title = title;
     }
 
     setImageDetail(element.sparkle, getGlowAsset());
@@ -65,62 +77,74 @@ function setCardElementDetail(element, character) {
 };
 
 
-// Temporary section for programmatically adding characters to the wishlist.
-setWishList({
-    Pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
-    Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Privaty", "D: Killer Wife"],
-    Missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
-    Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
-});
 
+const rate_up_character = banner_parameters.GetRateUpCharacter();
+const is_rate_up = (rate_up_character != null);
+{
+    const currency_prefix = "images/pull_assets/currency";
+    const reroll_currency = document.getElementById("reroll-currency");
+    const gained_ticket = document.getElementById("gained-ticket-image");
 
-
-const pulls = banner_parameters.GetRateUpCharacter() == null ? 
-    standard_pull(!banner_parameters.IsSinglePull) : 
-    special_pull(banner_parameters.GetRateUpCharacter(), !banner_parameters.IsSinglePull);
-
-if (!banner_parameters.IsSinglePull)
-    for (let i = 0; i < pulls.length; i++) {
-        const element = result_elements[i];
-        const character = pulls[i];
-
-        setCardElementDetail(element, character);
-        addCharacterToCollection(character.name);
+    if (is_rate_up) {
+        setImageDetail(reroll_currency, `${currency_prefix}/special_recruit_ticket.webp`, "Special Recruitment Ticket");
+        setImageDetail(gained_ticket, `${currency_prefix}/golden_mileage_ticket.png`, "Golden Mileage Ticket");
     }
-else {
-    setCardElementDetail(result_elements[0], pulls[0]);
-    addCharacterToCollection(pulls[0].name);
+    else {
+        setImageDetail(reroll_currency, `${currency_prefix}/standard_recruit_ticket.webp`, "Standard Recruitment Ticket");
+        setImageDetail(gained_ticket, `${currency_prefix}/silver_mileage_ticket.webp`, "Silver Mileage Ticket");
+    }
+}
+{
+    const pulls = (is_rate_up ? 
+        special_pull(rate_up_character, !banner_parameters.IsSinglePull) :
+        standard_pull(!banner_parameters.IsSinglePull)); 
+
+    if (!banner_parameters.IsSinglePull)
+        for (let i = 0; i < pulls.length; i++) {
+            const element = result_elements[i];
+            const character = pulls[i];
+
+            setCardElementDetail(element, character);
+            addCharacterToCollection(character.name);
+        }
+    else {
+        setCardElementDetail(result_elements[0], pulls[0]);
+        addCharacterToCollection(pulls[0].name);
+    }
+
+
+    let pull = 0;
+    const id = setInterval(() => {
+        const getIconForRarity = (type) => `images/pull_assets/lineup/${type.toLowerCase()}.png`;
+        const element = lineup_elements[pull];
+
+        element.icon.src = getIconForRarity(pulls[pull].rarity);
+        element.self.style.visibility = "visible";
+        element.glow.style.visibility = pulls[pull].rarity === Character.Rarities.SSR 
+            ? "visible" : "hidden";
+        
+        pull += 1;
+        if (pull === pulls.length) {
+            clearInterval(id);
+            setTimeout(() => {
+                document.getElementById("lineup").style.display = "none";
+                document.getElementById("gacha").style.display = "block";
+
+                const getScreenImage = () => {
+                    const prefix = "images/pull_assets/gachascreen-";
+
+                    if (window.innerWidth < 800) 
+                        return `${prefix}small.png`;
+                    else if (window.innerWidth < 1200) 
+                        return `${prefix}medium.png`;
+                    else 
+                        return `${prefix}large.png`;
+                };
+                document.getElementsByTagName("body")[0].style.backgroundImage = `url(${getScreenImage()})`;
+            }, 1000);
+        }
+    }, 55);
 }
 
 
-let pull = 0;
-const id = setInterval(() => {
-    const getIconForRarity = (type) => `images/pull_assets/lineup/${type.toLowerCase()}.png`;
-    const element = lineup_elements[pull];
-
-    element.icon.src = getIconForRarity(pulls[pull].rarity);
-    element.self.style.visibility = "visible";
-    element.glow.style.visibility = pulls[pull].rarity === Character.Rarities.SSR 
-        ? "visible" : "hidden";
-    
-    pull += 1;
-    if (pull === pulls.length) {
-        clearInterval(id);
-        setTimeout(() => {
-            document.getElementById("lineup").style.display = "none";
-            document.getElementById("gacha").style.display = "block";
-
-            const getScreenImage = () => {
-                const prefix = "images/pull_assets/gachascreen-";
-
-                if (window.innerWidth < 800) 
-                    return `${prefix}small.png`;
-                else if (window.innerWidth < 1200) 
-                    return `${prefix}medium.png`;
-                else 
-                    return `${prefix}large.png`;
-            };
-            document.getElementsByTagName("body")[0].style.backgroundImage = `url(${getScreenImage()})`;
-        }, 1000);
-    }
-}, 55);
+console.log(banner_parameters.GetRateUpCharacter());
