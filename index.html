@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NIKKE Gacha Simulator</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -36,16 +36,16 @@
     <div id="current-banner-container">
         <h1 id="current-banner-title">LIBERALIO</h1>
         <div id="current-banner-display">
-            <img id="current-banner-image" src="/images/banners/liberalio.webp" title="Rate Up: Liberalio">
+            <img id="current-banner-image" src="/images/banners/liberalio.png" title="Rate Up: Liberalio">
         </div>
         <div id="current-banner-options" class="option-buttons">
-            <button class="single-pull-button">
+            <button id="rate-up-single-pull-button" class="single-pull-button">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/special_recruit_ticket.webp" title="Special x1">
                 </div>
                 <p class="single-pull-currency currency-text">Recruit 1</p>
             </button>
-            <button class="multi-pull-button">
+            <button id="rate-up-multi-pull-button" class="multi-pull-button">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/special_recruit_ticket.webp" title="Special x10">
                 </div>
@@ -53,5 +53,6 @@
             </button>
         </div>
     </div>
+    <script type="module" src="/scripts/index-script.js"></script>
 </body>
 </html>
