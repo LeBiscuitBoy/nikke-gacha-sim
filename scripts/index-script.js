@@ -8,18 +8,36 @@ const banners = [
     "Ada",
     "Jill",
 ]
+
 function setImage(img, url, title) {
     img.src = url,
     img.title = title;
 }
+function setBannerDetail(banner, banner_name) {
+    banner.SanitizedName = banner_name.toLowerCase();
+    Character.IllegalImageChars.forEach((c) => banner.SanitizedName = banner.SanitizedName.replaceAll(c, ""));
+    
+    banner.Title.innerHTML = banner_name.toUpperCase();
+    setImage(banner.Image, `images/banners/${banner.SanitizedName}.png`, `Rate Up: ${banner_name}`);
+}
 
+{
+    const banner = {
+        Title: document.getElementById("current-banner-title"),
+        Image: document.getElementById("current-banner-image"),
+        SinglePullButton: document.getElementById("rate-up-single-pull-button"),
+        MultiPullButton: document.getElementById("rate-up-multi-pull-button"),
+        SanitizedName: ""
+    };
+    setBannerDetail(banner, banners[0]);
 
-const newest_banner = banners[0];
-let sanitized_name = newest_banner.toLowerCase();
-Character.IllegalImageChars.forEach((c) => sanitized_name = sanitized_name.replaceAll(c, ""));
-
-document.getElementById("current-banner-title").innerText = newest_banner.toUpperCase();
-setImage(document.getElementById("current-banner-image"), `images/banners/${sanitized_name}.png`, `Rate Up: ${newest_banner}`)
+    banner.SinglePullButton.addEventListener("click", () => {
+        window.location.replace(`gacha.html?character=${banner.SanitizedName}&singlepull`);
+    });
+    banner.MultiPullButton.addEventListener("click", () => {
+        window.location.replace(`gacha.html?character=${banner.SanitizedName}`);
+    });
+}
 
 
 {
@@ -45,9 +63,51 @@ setImage(document.getElementById("current-banner-image"), `images/banners/${sani
     toggleElement(previous_banner_element, false);
 }
 
-document.getElementById("rate-up-single-pull-button").addEventListener("click", () => {
-    window.location.replace(`gacha.html?character=${sanitized_name}&singlepull`);
-});
-document.getElementById("rate-up-multi-pull-button").addEventListener("click", () => {
-    window.location.replace(`gacha.html?character=${sanitized_name}`);
-});
+
+
+{ 
+    // Banner iterator
+    const previous_button = document.getElementById("previous-banner-button");
+    const next_button = document.getElementById("next-banner-button");
+    
+    const previous_banner = document.getElementById("previous-banners-container");
+    const banner_elements = {
+        Title: previous_banner.getElementsByClassName("banner-title")[0],
+        Image: previous_banner.getElementsByClassName("banner-image")[0],
+        SinglePullButton: previous_banner.getElementsByClassName("single-pull-button")[0],
+        MultiPullButton: previous_banner.getElementsByClassName("multi-pull-button")[0],
+        SanitizedName: ""
+    };
+    setBannerDetail(banner_elements, banners[1]);
+
+    banner_elements.SinglePullButton.addEventListener("click", () => {
+        window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`);
+    });
+    banner_elements.MultiPullButton.addEventListener("click", () => {
+        window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`);
+    });
+
+    function toggleButton(button, is_enabled) {
+        button.disabled = !is_enabled;
+    }
+
+    let iterator = 1;
+    previous_button.addEventListener("click", () => {
+        if (iterator === 1) {
+            toggleButton(previous_button, false);
+            return;
+        }
+        
+        toggleButton(next_button, true);
+        setBannerDetail(banner_elements, banners[--iterator]);
+    });
+    next_button.addEventListener("click", () => {
+        if (iterator === banners.length - 1) {
+            toggleButton(next_button, false);
+            return;
+        }
+
+        toggleButton(previous_button, true);
+        setBannerDetail(banner_elements, banners[++iterator]);
+    });
+}
