@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    background-color: rgb(133, 133, 133);
+}
+img {
+    width: 100%;
+}
+
+
+#selector {
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: flex-start;
+    overflow: scroll;
+}
+
+.option-button {
+    width: 172px;
+    min-width: 172px;
+    background-color: lightblue;
+    margin-right: 5px;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    cursor: pointer;
+}
+
+.option-image-container {
+    width: 10%;
+    min-width: 32px;
+    margin-right: 2%;
+}
+.option-text {
+    margin: 0;
+    text-wrap-mode: nowrap;
+    font-size: 1rem;
+    margin-left: 2%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.option-image {
+    position: relative;
+    top: 3px;
+    left: 3px;
+}
