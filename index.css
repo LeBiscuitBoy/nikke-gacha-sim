@@ -49,22 +49,22 @@ img {
 }
 
 
-#current-banner-container {
+.banner-container {
     width: 100%;
 }
-#current-banner-display {
+.banner-display {
     width: 50%;
     min-width: 300px;
     margin: auto;
 }
-#current-banner-title {
+.banner-title {
     color: rgb(255, 239, 151);
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 4rem;
     margin-bottom: 0;
 }
-#current-banner-image {
+.banner-image {
     margin-top: 5%;
     margin-bottom: 2%;
     box-shadow: 0 0 25px 10px rgb(255, 239, 151);       
@@ -84,7 +84,7 @@ img {
     }
 }
 
-#current-banner-options {
+.option-buttons {
     width: 100%;
     margin-top: 2%;
     display: flex;
