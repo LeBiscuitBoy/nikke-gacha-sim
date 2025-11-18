@@ -172,9 +172,9 @@ const characters = [
     new Character("Mast: Romantic Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Privaty: Unkind Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Anchor: Innocent Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
-    new Character("Emma: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion),
-    new Character("Vesti: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion),
-    new Character("Eunhwa: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion),
+    new Character("Emma: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
+    new Character("Vesti: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
+    new Character("Eunhwa: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Guillotine: Winter Slayer", false, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
 
     new Character("Mihara: Bonding Chain", true, Character.Rarities.SSR, Character.Manufacturers.Missilis, true, true),
