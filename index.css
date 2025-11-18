@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: rgb(133, 133, 133);
+    background-color: black
 }
 img {
     width: 100%;
@@ -9,16 +9,17 @@ img {
 
 #selector {
     width: 100%;
-    background-color: aqua;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     overflow: scroll;
+    position: fixed;
+    top: 5px;
 }
 
 .option-button {
     width: 172px;
     min-width: 172px;
-    background-color: lightblue;
+    margin-left: 5px;
     margin-right: 5px;
     padding: 0;
     border: 0;
@@ -45,4 +46,80 @@ img {
     position: relative;
     top: 3px;
     left: 3px;
+}
+
+
+#current-banner-container {
+    width: 100%;
+}
+#current-banner-display {
+    width: 50%;
+    min-width: 300px;
+    margin: auto;
+}
+#current-banner-title {
+    color: rgb(255, 239, 151);
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 4rem;
+    margin-bottom: 0;
+}
+#current-banner-image {
+    margin-top: 10%;
+    margin-bottom: 2%;
+    box-shadow: 0 0 25px 10px rgb(255, 239, 151);       
+
+    animation: glow-pulse 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes glow-pulse {
+    50% {
+        box-shadow: 0 0 40px 10px rgb(253, 228, 86);
+    }
+    100% {
+        box-shadow: 0 0 25px 10px rgb(255, 239, 151);
+    }
+}
+
+#current-banner-options {
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 500px; 
+}
+.currency-text {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+    margin-right: 5px;
+    color: white;
+}
+.single-pull-button, .multi-pull-button {
+    width: 160px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(113, 186, 255);
+    border-width: 1px;
+    border-color: white;
+    box-shadow: 0 10px rgb(17, 17, 17);
+    cursor: pointer;
+}
+.currency-image-container {
+    display: inline-block;
+    width: 30%;
+    min-width: 32px;
+    position: relative;
+    height: 100%;
+}
+.currency-image {
+    position: absolute;
+    width: 130%;
+    left: 5%;
+    top: -70%;
 }
