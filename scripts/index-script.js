@@ -7,6 +7,10 @@ const banners = [
     "Delta: Ninja Thief",
     "Ada",
     "Jill",
+    "Milk: Blooming Bunny",
+    "Ade: Agent Bunny",
+    "Vesti: Tactical Upgrade",
+    "Eunhwa: Tactical Upgrade"
 ]
 
 function setImage(img, url, title) {
