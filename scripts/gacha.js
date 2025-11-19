@@ -52,7 +52,7 @@ function get_character_from_pool(pools, roll, has_banner_character) {
 };
 
 function special_pull(rate_up_character, is_ten_pull = true) {
-    const pool_filter = (character, rarity) => character.isInStandardPool && character.rarity === rarity;
+    const pool_filter = (character, rarity) => character.isInStandardPool && character.rarity === rarity && character.dateAvailable <= rate_up_character.dateAvailable;
     const isSpecial = (character) => (character.overspec || character.manufacturer === Character.Manufacturers.Pilgrim);
 
     const pools = {
@@ -65,13 +65,13 @@ function special_pull(rate_up_character, is_ten_pull = true) {
             Rate: 43
         },
         SSR: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && !isSpecial(c) &&
-                c.name !== rate_up_character.name),
+            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && 
+            !isSpecial(c) && c.name !== rate_up_character.name),
             Rate: isSpecial(rate_up_character) ? 2.5 : 1.75
         },
         Special: {
-            Characters : characters.filter((c) => c.rarity === Character.Rarities.SSR && 
-                c.isInStandardPool && isSpecial(c) && c.name !== rate_up_character.name),
+            Characters : characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && 
+                isSpecial(c) && c.name !== rate_up_character.name),
             Rate: isSpecial(rate_up_character) ? 0.5 : 0.25
         },
         RateUp: {
