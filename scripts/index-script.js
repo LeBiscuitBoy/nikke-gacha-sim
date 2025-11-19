@@ -2,6 +2,7 @@ import { Character } from './chars.js';
 
 
 const banners = [
+    //"Soline: Frost Ticket",
     "Liberalio",
     "Nayuta",   
     "Delta: Ninja Thief",
@@ -10,7 +11,91 @@ const banners = [
     "Milk: Blooming Bunny",
     "Ade: Agent Bunny",
     "Vesti: Tactical Upgrade",
-    "Eunhwa: Tactical Upgrade"
+    "Eunhwa: Tactical Upgrade",
+    "Emma: Tactical Upgrade",
+    "Elegg: Boom and Shock",
+    "Dorothy: Serendipity",
+    "A2",
+    "2B",
+    "Sora",
+    "Raven",
+    "EVE",
+    "K",
+    "Arcana",
+    "Mihara: Bonding Chain",
+    "Little Mermaid",
+    "Crust",
+    "Bready",
+    "Trina",
+    "Rei Ayanami (Tentative Name)",
+    "Asuka",
+    "Asuka: WILLE",
+    "Anchor: Innocent Maid",
+    "Mast: Romantic Maid",
+    "Rapi: Red Hood",
+    "Mana",
+    "Guillotine: Winter Slayer",
+    "Maiden: Ice Rose",
+    "Flora",
+    "Grave",
+    "Cinderella",
+    "Rumani",
+    "Phantom",
+    "Quency: Escape Queen",
+    "Rouge",
+    "Mari",
+    "Rei Ayanami",
+    "Zwei",
+    "Ein",
+    "Rosanna: Chic Ocean",
+    "Sakura: Bloom in Summer",
+    "Clay",
+    "Alice: Wonderland Bunny",
+    "Soda: Twinkling Bunny",
+    "Trony",
+    "Crown",
+    "Bay",
+    "Emilia",
+    "Rem",
+    "D: Killer Wife",
+    "Ade",
+    "Privaty: Unkind Maid",
+    "Elegg",
+    "Moran",
+    "Scarlet: Black Shadow",
+    "Leona",
+    "Mica: Snow Buddy",
+    "Ludmilla: Winter Owner",
+    "Tove",
+    "Red Hood",
+    "Quiry",
+    "Tia",
+    "Naga",
+    "Marciana",
+    "Helm: Aquamarine",
+    "Anis: Sparkling Summer",
+    "Mast",
+    "Mary: Bay Goddess",
+    "Neon: Blue Ocean",
+    "Rosanna",
+    "Noir",
+    "Blanc",
+    "Dorothy",
+    "D",
+    "Alice",
+    "Sakura",
+    "Biscuit",
+    "Power",
+    "Makima",
+    "Soda",
+    "Cocoa",
+    "Viper",
+    "Jackal",
+    "Modernia",
+    "Anne: Miracle Fairy",
+    "Rupee: Winter Shopper",
+    "Laplace",
+    "Helm"
 ]
 
 function setImage(img, url, title) {
@@ -73,7 +158,8 @@ function setBannerDetail(banner, banner_name) {
     // Banner iterator
     const previous_button = document.getElementById("previous-banner-button");
     const next_button = document.getElementById("next-banner-button");
-    
+    const banner_search_box = document.getElementById("banner-search-input");
+
     const previous_banner = document.getElementById("previous-banners-container");
     const banner_elements = {
         Title: previous_banner.getElementsByClassName("banner-title")[0],
@@ -96,12 +182,25 @@ function setBannerDetail(banner, banner_name) {
     }
 
     let iterator = 1;
+    banner_search_box.addEventListener("change", () => {
+        const search = banner_search_box.value.toLowerCase();
+        const index = banners.findLastIndex((b) => b.toLowerCase().includes(search));
+        banner_search_box.value = "";
+        
+        if (index < 1) return; 
+        iterator = index;
+
+        toggleButton(previous_button, index > 1);
+        toggleButton(next_button, index < (banners.length - 1));
+        setBannerDetail(banner_elements, banners[index]);
+        
+    });
     previous_button.addEventListener("click", () => {
         if (iterator === 1) {
             toggleButton(previous_button, false);
             return;
         }
-        
+
         toggleButton(next_button, true);
         setBannerDetail(banner_elements, banners[--iterator]);
     });
