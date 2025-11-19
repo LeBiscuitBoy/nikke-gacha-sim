@@ -9,7 +9,7 @@
 
 body {
     margin: 0;
-    overflow: hidden;
+    overflow: scroll;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -173,7 +173,7 @@ body {
     border-radius: 2px;
     margin: auto;
     margin-right: 10px;
-    top: -50px;
+    top: -120px;
     z-index: -1;
 }
 #gained-ticket-image {
