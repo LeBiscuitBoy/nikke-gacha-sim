@@ -129,14 +129,4 @@ standard_single_button.addEventListener("click", () => window.location.replace("
 standard_multi_button.addEventListener("click", () => window.location.replace("gacha.html"));
 
 
-
-// Temporary section for programmatically adding characters to the wishlist.
-setWishList({
-    Pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
-    Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Guillotine", "D: Killer Wife"],
-    Missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
-    Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
-});
-
-
 console.log(getWishList());
