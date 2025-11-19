@@ -175,3 +175,48 @@ img {
         box-shadow: 0 0 25px 10px rgb(21, 121, 202);
     }
 }
+
+
+#wishlist-container {
+    background-color: white;
+    width: 60%;
+    margin: auto;
+    margin-top: 2%;
+    text-align: center;
+        min-width: 250px;
+}
+.wishlist-manufacturer {
+    width: 48%;
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: rgb(71, 71, 71);
+    border-style: solid;
+    background-color: aqua;
+    display: inline-block;
+    min-width: 240px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.wishlist-manufacturer p {
+    margin: 0;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.5rem;
+    text-wrap-mode: nowrap;
+}
+.character-display {
+    width: 96%;
+    margin: auto;
+    background-color: rgb(95, 21, 21);
+    display: flex;
+    align-content: space-evenly;
+    margin-bottom: 2%;
+}
+.wishlist-character-image {
+    width: 19%;
+    margin: 1%;
+    background-color: aliceblue;
+}
