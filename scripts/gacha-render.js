@@ -158,3 +158,13 @@ const is_rate_up = (rate_up_character != null);
         }
     }, 55);
 }
+
+
+const confirm_button = document.getElementById("confirm-button");
+const recruit_again_button = document.getElementById("recruit-again-button");
+
+recruit_again_button.addEventListener("click", () => location.reload());
+confirm_button.addEventListener("click", () => {
+    localStorage.clear(); 
+    window.location.replace('index.html');
+});
