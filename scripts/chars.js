@@ -109,7 +109,7 @@ const characters = [
     new Character("Clay", true, Character.Rarities.SSR, Character.Manufacturers.Tetra, new Date(2024, 5, 20), true, new Date(2024, 6, 3)),
     new Character("Exia", true, Character.Rarities.SSR, Character.Manufacturers.Tetra),
     new Character("Mary", true, Character.Rarities.SSR, Character.Manufacturers.Tetra),
-    new Character("Nero", true, Character.Rarities.SSR, Character.Manufacturers.Tetra, new Date(2023, 6, 6), true, new Date(2023, 6, 20)),
+    new Character("Nero", true, Character.Rarities.SSR, Character.Manufacturers.Tetra),
     new Character("Noir", true, Character.Rarities.SSR, Character.Manufacturers.Tetra, new Date(2023, 4, 25), true, new Date(2023, 5, 8)),
     new Character("Milk", true, Character.Rarities.SSR, Character.Manufacturers.Tetra),
     new Character("Soda", true, Character.Rarities.SSR, Character.Manufacturers.Tetra, new Date(2023, 1, 1), true, new Date(2023, 2, 5)),
