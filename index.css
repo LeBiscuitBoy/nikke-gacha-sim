@@ -86,7 +86,7 @@ img {
 
 .option-buttons {
     width: 100%;
-    margin-top: 2%;
+    margin-top: 1%;
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
@@ -141,4 +141,20 @@ img {
 }
 .character-selection-button p {
     margin: 0;
+}
+
+#banner-search {
+    width: 30%;
+    margin: auto;
+    min-width: 300px;
+}
+#banner-search-input {
+    width: 100%;
+    border: 0;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    background-color: rgb(85, 85, 85);
+    color: white;
+    padding: 5px;
 }
