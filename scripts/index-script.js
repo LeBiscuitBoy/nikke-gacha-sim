@@ -40,20 +40,25 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
 
     const current_banner_element = document.getElementById("current-banner-container");
     const previous_banner_element = document.getElementById("previous-banners-container");
+    const standard_banner_element = document.getElementById("standard-banner-container");
 
     document.getElementById("current-banner-button").addEventListener("click", () => {
         toggleElement(current_banner_element, true);
         toggleElement(previous_banner_element, false);
+        toggleElement(standard_banner_element, false);
     });
     document.getElementById("previous-banners-button").addEventListener("click", () => {
         toggleElement(current_banner_element, false);
         toggleElement(previous_banner_element, true);
+        toggleElement(standard_banner_element, false);
     });
     document.getElementById("standard-banner-button").addEventListener("click", () => {
         toggleElement(current_banner_element, false);
         toggleElement(previous_banner_element, false);
+        toggleElement(standard_banner_element, true);
     });
     toggleElement(previous_banner_element, false);
+    toggleElement(standard_banner_element, false);
 }
 
 
@@ -74,12 +79,8 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
     };
     setBannerDetail(banner_elements, banners[1]);
 
-    banner_elements.SinglePullButton.addEventListener("click", () => {
-        window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`);
-    });
-    banner_elements.MultiPullButton.addEventListener("click", () => {
-        window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`);
-    });
+    banner_elements.SinglePullButton.addEventListener("click", () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`));
+    banner_elements.MultiPullButton.addEventListener("click", () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`));
 
     function toggleButton(button, is_enabled) {
         button.disabled = !is_enabled;
@@ -118,3 +119,10 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
         setBannerDetail(banner_elements, banners[++iterator]);
     });
 }
+
+
+const standard_single_button = document.getElementById("standard-single-pull-button");
+const standard_multi_button = document.getElementById("standard-multi-pull-button");
+
+standard_single_button.addEventListener("click", () => window.location.replace("gacha.html?singlepull"));
+standard_multi_button.addEventListener("click", () => window.location.replace("gacha.html"));

@@ -67,12 +67,13 @@ img {
 .banner-image {
     margin-top: 5%;
     margin-bottom: 2%;
-    box-shadow: 0 0 25px 10px rgb(255, 239, 151);       
     border-radius: 3px;
-
-    animation: glow-pulse 5s;
+    
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+
+    animation: glow-pulse 5s;
+    box-shadow: 0 0 25px 10px rgb(255, 239, 151);       
 }
 
 @keyframes glow-pulse {
@@ -157,4 +158,20 @@ img {
     background-color: rgb(85, 85, 85);
     color: white;
     padding: 5px;
+}
+
+#standard-banner-title {
+    color: rgb(21, 121, 202);
+}
+#standard-banner-image {
+    animation: standard-glow-pulse 5s;
+    box-shadow: 0 0 25px 10px rgb(21, 121, 202);;      
+}
+@keyframes standard-glow-pulse {
+    50% {
+        box-shadow: 0 0 40px 10px rgb(13, 97, 165);
+    }
+    100% {
+        box-shadow: 0 0 25px 10px rgb(21, 121, 202);
+    }
 }
