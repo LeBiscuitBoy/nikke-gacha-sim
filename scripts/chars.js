@@ -168,7 +168,7 @@ const characters = [
     new Character("Helm: Aquamarine", false, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Maiden: Ice Rose", false, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Neon: Blue Ocean", false, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
-    new Character("Delta: Ninja Thief", true, Character.Rarities.SSR, Character.Manufacturers.Elysion),
+    new Character("Delta: Ninja Thief", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Mast: Romantic Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Privaty: Unkind Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
     new Character("Anchor: Innocent Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, false, true),
@@ -206,7 +206,7 @@ const characters = [
     new Character("Quency", false, Character.Rarities.SSR, Character.Manufacturers.Missilis),
     new Character("Quency: Escape Queen", true, Character.Rarities.SSR, Character.Manufacturers.Missilis, false, true),
     new Character("Anne: Miracle Fairy", false, Character.Rarities.SSR, Character.Manufacturers.Missilis, false, true),
-    new Character("Elegg: Boom and Shock", false, Character.Rarities.SSR, Character.Manufacturers.Missilis),
+    new Character("Elegg: Boom and Shock", false, Character.Rarities.SSR, Character.Manufacturers.Missilis, false, true),
 
     new Character("Noah", true, Character.Rarities.SSR, Character.Manufacturers.Pilgrim),
     new Character("Crown", true, Character.Rarities.SSR, Character.Manufacturers.Pilgrim, false, true),
