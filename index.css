@@ -89,7 +89,7 @@ img {
     justify-content: space-evenly;
 }
 .currency-text {
-    margin: 0 0 0 5px;
+    margin: 0 5px 0 0;
     display: inline-block;
 }
 .option-buttons button {
@@ -132,7 +132,7 @@ img {
     margin: 0;
 }
 #banner-search {
-    width: 30%;
+    width: 25%;
     margin: auto;
     min-width: 300px;
 }
