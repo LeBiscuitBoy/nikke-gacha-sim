@@ -193,7 +193,7 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
 
         img.addEventListener("click", () => {
             if (clicked_before) {
-                img.style.backgroundColor = "rgb(164, 211, 252)";
+                img.style.backgroundColor = "var(--select-character-profile-backcolour)";
                 img.style.opacity = 1;
                 character_selector.SelectedCharacters = character_selector.SelectedCharacters.filter((sc) => sc !== c.name);
             }
