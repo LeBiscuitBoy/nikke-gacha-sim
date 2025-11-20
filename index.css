@@ -147,7 +147,7 @@ img {
 
 
 #standard-banner-title {
-    color: rgb(21, 121, 202);
+    color: var(--standard-banner-title-colour);
 }
 #standard-banner-image {
     animation: standard-glow-pulse 5s;
