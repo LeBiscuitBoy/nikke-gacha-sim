@@ -26,8 +26,8 @@
                 <img class="option-image" src="images/pull_assets/currency/standard_recruit_ticket.webp">
             </div>
         </button>
-        <button id="currency-button" class="option-button">
-            <p class="option-text">Currency</p>
+        <button id="currency-button" class="option-button" onclick="localStorage.clear();">
+            <p class="option-text">Clear Data</p>
             <div class="option-image-container">
                 <img class="option-image" src="images/pull_assets/currency/gem.webp">
             </div>
@@ -79,6 +79,74 @@
             <button id="next-banner-button" class="character-selection-button">
                 <p id="next-banner-name">Next &gt;&gt;</p>
             </button>
+        </div>
+        <div id="banner-search">
+            <input id="banner-search-input" type="text" placeholder="Search for banner..">
+        </div>
+    </div>
+    <div id="standard-banner-container">
+        <h1 id="standard-banner-title" class="banner-title">Normal Recruitment</h1>
+        <div id="standard-banner-display" class="banner-display">
+            <img id="standard-banner-image" class="banner-image" src="images/banners/standard.png" title="Standard Banner Recruitment">
+        </div>
+        <div id="standard-banner-options" class="option-buttons">
+            <button id="standard-single-pull-button" class="single-pull-button">
+                <div class="currency-image-container">
+                    <img class="currency-image" src="images/pull_assets/currency/standard_recruit_ticket.webp" title="Standard x1">
+                </div>
+                <p class="single-pull-currency currency-text">Recruit 1</p>
+            </button>
+            <button id="standard-multi-pull-button" class="multi-pull-button">
+                <div class="currency-image-container">
+                    <img class="currency-image" src="images/pull_assets/currency/standard_recruit_ticket.webp" title="Standard x10">
+                </div>
+                <p class="multi-pull-currency currency-text">Recruit 10</p>
+            </button>
+        </div>
+        <div id="wishlist-container">
+            <div id="wishlist-manufacturers">
+                <div id="wishlist-elysion" class="wishlist-manufacturer">
+                    <p>ELYSION</p>
+                    <div class="character-display">
+                        <img id="wishlist-elysion-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-elysion-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-elysion-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-elysion-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-elysion-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                    </div>
+                </div>
+                <div id="wishlist-tetra" class="wishlist-manufacturer">
+                    <p>TETRA</p>
+                    <div class="character-display">
+                        <img id="wishlist-tetra-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-tetra-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-tetra-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-tetra-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-tetra-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                    </div>
+                </div>
+                <div id="wishlist-missilis" class="wishlist-manufacturer">
+                    <p>MISSILIS</p>
+                    <div class="character-display">
+                        <img id="wishlist-missilis-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-missilis-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-missilis-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-missilis-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-missilis-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                    </div>
+                </div>
+                <div id="wishlist-pilgrim-overspec" class="wishlist-manufacturer">
+                    <p>PILGRIM / OVERSPEC</p>
+                    <div class="character-display">
+                        <img id="wishlist-pilgrim-overspec-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-pilgrim-overspec-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-pilgrim-overspec-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-pilgrim-overspec-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-pilgrim-overspec-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                    </div>
+                </div>
+            </div>
+            <div id="wishlist-character-selector"></div>
         </div>
     </div>
     <script type="module" src="scripts/index-script.js"></script>

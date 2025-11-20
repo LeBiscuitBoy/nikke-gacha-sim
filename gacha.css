@@ -9,37 +9,32 @@
 
 body {
     margin: 0;
-    overflow: hidden;
-    background-repeat: no-repeat;
+    overflow: scroll;
+    background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #gacha {
     opacity: 0;
-    animation: materialise 0.5s;
-    animation-fill-mode: forwards;
+    animation: materialise 0.5s forwards;
 }
 @keyframes materialise {
-    100% {
-        opacity: 1;
-    }
+    100% { opacity: 1; }
 }
-
 #gacha-result-container {
     width: 25%;
-    min-width: 400px;
-    margin: auto;
-    position: relative;
     z-index: 1;
+    margin: auto;
+    min-width: 400px;
+    position: relative;
 }
-
 
 #result-columns {
     display: flex;
-    justify-content: space-evenly;
     position: relative;
+    justify-content: space-evenly;
 }
 .result-column {
     width: 20%;
@@ -72,14 +67,14 @@ body {
 }
 .sparkle, .character-card {
     width: 100%;
-    position: relative;
     display: block;
+    position: relative;
 }
 
 .new-character {
-    position: absolute;
     width: 54%;
     right: 2px;
+    position: absolute;
 }
 .top .new-character {
     top: 41%;
@@ -88,9 +83,9 @@ body {
     top: -3%;
 }
 .spare-body {
-    position: absolute;
     width: 56%;
     right: 1px;
+    position: absolute;
 }
 .top .spare-body {
     bottom: -5%;
@@ -99,17 +94,16 @@ body {
     top: 50%;
 }
 
-
 .notification {
-    background-color: var(--info-colour);
+    height: 26px;
     position: relative;
     box-shadow: 0 4px 1px var(--shadow);
-    height: 26px;
+    background-color: var(--info-colour);
 }
 #reroll-options {
-    position: absolute;
     top: 90%;
     width: 100%;
+    position: absolute;
 }
 #reroll-option-blocks {
     display: flex;
@@ -122,13 +116,11 @@ body {
 .option-button {
     width: 100%;
     height: 36px;
+    cursor: pointer;
+    font: bold 1rem var(--font-family);
+    color: var(--white);
     border-style: solid;
     border-color: var(--white);
-    color: var(--white);
-    font-family: var(--font-family);
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
     box-shadow: 0 8px 1px var(--shadow);
 }
 #recruit-again-button {
@@ -139,56 +131,53 @@ body {
 }
 #reroll-spend-notification {
     width: 75%;
-    margin: auto;
-    margin-top: 18px;
+    margin: 18px auto auto auto;
 }
 #reroll-currency {
-    position: absolute;
-    top: -8px;
     left: 0;
+    top: -8px;
     width: 36%;
+    position: absolute;
 }
 #reroll-spend-notification p {
     margin: 0;
-    position: absolute;
-    font-family: var(--font-family);
     font-weight: bold;
+    position: absolute;
     color: var(--white);
+    font-family: var(--font-family);
 }
 #multiplier {
     top: 3px;
-    font-size: 0.9rem;
     left: 51px;
+    font-size: 0.9rem;
 }
 #quantity {
     top: 1px;
-    font-size: 1.1rem;
     left: 80px;
+    font-size: 1.1rem;
 }
 
 #gained-tickets-notification {
-    position: relative;
-    width: 100px;
-    background-color: var(--info-colour);
-    border-radius: 2px;
-    margin: auto;
-    margin-right: 10px;
-    top: -50px;
     z-index: -1;
+    top: -120px;
+    width: 100px;
+    border-radius: 2px;
+    position: relative;
+    margin: auto 10px auto auto;
+    background-color: var(--info-colour);
 }
 #gained-ticket-image {
-    position: absolute;
-    width: 30%;
     top: -2px;
+    width: 30%;
     left: 10px;
+    position: absolute;
 }
 #gained-tickets-notification p {
-    margin: 0;
-    position :absolute;
-    font-family: var(--font-family);
-    font-weight: bold;
-    color: var(--rerecruit-colour);
-    font-weight: bolder;
     top: 1px;
+    margin: 0;
     left: 50px;
+    font-weight: bold;
+    position: absolute;
+    font-family: var(--font-family);
+    color: var(--rerecruit-colour);
 }

@@ -1,17 +1,6 @@
 import { Character, characters } from './chars.js';
 import { result_elements, lineup_elements, standard_pull, special_pull  } from './gacha.js';
-import { hasCharacter, addCharacterToCollection, getCharacterPullCount, setWishList } from './savedata.js';
-
-
-
-// Temporary section for programmatically adding characters to the wishlist.
-setWishList({
-    Pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
-    Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Guillotine", "D: Killer Wife"],
-    Missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
-    Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
-});
-
+import { hasCharacter, addCharacterToCollection, getCharacterPullCount } from './savedata.js';
 
 
 const query_parameters = new URLSearchParams(window.location.search);
@@ -171,3 +160,8 @@ const is_rate_up = (rate_up_character != null);
 }
 
 
+const confirm_button = document.getElementById("confirm-button");
+const recruit_again_button = document.getElementById("recruit-again-button");
+
+recruit_again_button.addEventListener("click", () => location.reload());
+confirm_button.addEventListener("click", () => window.location.replace('index.html'));

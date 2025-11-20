@@ -10,9 +10,15 @@ function keyExists(key) {
 if (!keyExists(keys.pulledCharacters)) 
     localStorage.setItem(keys.pulledCharacters, 
         JSON.stringify([]));
-if (!keyExists(keys.wishedCharacters)) 
+if (!keyExists(keys.wishedCharacters)) {
     localStorage.setItem(keys.wishedCharacters, 
-        JSON.stringify([]));
+        JSON.stringify({
+            Pilgrim:  ["Little Mermaid", "Rapi: Red Hood", "Red Hood", "Grave", "Cinderella"],
+            Elysion:  ["Emma: Tactical Upgrade", "Eunhwa: Tactical Upgrade", "Vesti: Tactical Upgrade", "Guillotine", "D: Killer Wife"],
+            Missilis: ["Elegg", "Maxwell", "Drake", "Laplace", "Mana"],
+            Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
+    }));
+}
 
 
 
