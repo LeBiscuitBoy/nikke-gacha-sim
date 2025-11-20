@@ -180,11 +180,10 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
         const toggleWishlistOpacity = (toggle) => {
             let all = [manufacturers.Elysion, manufacturers.Missilis, manufacturers.PilgrimOverspec, manufacturers.Tetra];
             if (toggle) 
-                all = all.filter((m) => m.Name !== manufacturer.Name)
+                all = all.filter((m) => m.Name !== manufacturer.Name);
 
             all.map((m) => m.WishListImageElements).forEach((me) => Array.from(me).forEach((mi) => mi.style.opacity = toggle ? 0.5 : 1));
         };
-        
         character_selector.IsOpen = !character_selector.IsOpen;
         
         if (!character_selector.IsOpen) {
