@@ -181,7 +181,7 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
     };
 
     const character_selector = {
-        SelectedManufacturer: "",
+        SelectedManufacturer: null,
         IsOpen: false,
         Container: document.getElementById("wishlist-character-selector"),
         SelectedCharacters: []
@@ -224,7 +224,7 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
                     Tetra:    manufacturers.Tetra.CurrentlyWishedCharacters
                 });
             }
-            character_selector.SelectedManufacturer = "";
+            character_selector.SelectedManufacturer = null;
         }
         else {
             createProfileElements(manufacturer);
