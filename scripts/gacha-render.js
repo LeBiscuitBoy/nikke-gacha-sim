@@ -164,7 +164,4 @@ const confirm_button = document.getElementById("confirm-button");
 const recruit_again_button = document.getElementById("recruit-again-button");
 
 recruit_again_button.addEventListener("click", () => location.reload());
-confirm_button.addEventListener("click", () => {
-    localStorage.clear(); 
-    window.location.replace('index.html');
-});
+confirm_button.addEventListener("click", () => window.location.replace('index.html'));
