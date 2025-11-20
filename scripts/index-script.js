@@ -2,11 +2,13 @@ import { getWishList, setWishList } from './savedata.js';
 import { Character, characters } from './chars.js';
 
 
-function setImage(img, url, title) {
+const ce = "click";
+const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
+const setImage = (img, url, title) => {
     img.src = url,
     img.title = title;
 }
-function setBannerDetail(banner, banner_name) {
+const setBannerDetail = (banner, banner_name) => {
     banner.SanitizedName = banner_name.toLowerCase();
     Character.IllegalImageChars.forEach((c) => banner.SanitizedName = banner.SanitizedName.replaceAll(c, ""));
     
@@ -14,7 +16,6 @@ function setBannerDetail(banner, banner_name) {
     setImage(banner.Image, `images/banners/${banner.SanitizedName}.png`, `Rate Up: ${banner_name}`);
 }
 
-const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
 {
     const banner = {
         Title: document.getElementById("current-banner-title"),
@@ -25,43 +26,24 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
     };
     setBannerDetail(banner, banners[0]);
 
-    banner.SinglePullButton.addEventListener("click", () => {
-        window.location.replace(`gacha.html?character=${banner.SanitizedName}&singlepull`);
-    });
-    banner.MultiPullButton.addEventListener("click", () => {
-        window.location.replace(`gacha.html?character=${banner.SanitizedName}`);
-    });
+    banner.SinglePullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner.SanitizedName}&singlepull`));
+    banner.MultiPullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner.SanitizedName}`));
 }
 
-
-function toggleElement(element, is_visible) {
-    element.style.display = (is_visible ? "block" : "none");
-}
 {
-    const current_banner_element = document.getElementById("current-banner-container");
-    const previous_banner_element = document.getElementById("previous-banners-container");
-    const standard_banner_element = document.getElementById("standard-banner-container");
+    const tabs = [
+        document.getElementById("current-banner-container"), 
+        document.getElementById("previous-banners-container"), 
+        document.getElementById("standard-banner-container")
+    ];
+    const showIndexTab = (tab_index) => tabs.forEach((t, i) => t.style.display = (i === tab_index) ? "block" : "none");
 
-    document.getElementById("current-banner-button").addEventListener("click", () => {
-        toggleElement(current_banner_element, true);
-        toggleElement(previous_banner_element, false);
-        toggleElement(standard_banner_element, false);
-    });
-    document.getElementById("previous-banners-button").addEventListener("click", () => {
-        toggleElement(current_banner_element, false);
-        toggleElement(previous_banner_element, true);
-        toggleElement(standard_banner_element, false);
-    });
-    document.getElementById("standard-banner-button").addEventListener("click", () => {
-        toggleElement(current_banner_element, false);
-        toggleElement(previous_banner_element, false);
-        toggleElement(standard_banner_element, true);
-    });
-    toggleElement(current_banner_element, false);
-    toggleElement(previous_banner_element, false);
-    toggleElement(standard_banner_element, true);
+    document.getElementById("current-banner-button").addEventListener(ce, () => showIndexTab(0));
+    document.getElementById("previous-banners-button").addEventListener(ce, () => showIndexTab(1));
+    document.getElementById("standard-banner-button").addEventListener(ce, () => showIndexTab(2));
+
+    showIndexTab(0); // Default tab to show.
 }
-
 
 
 { 
@@ -80,14 +62,13 @@ function toggleElement(element, is_visible) {
     };
     setBannerDetail(banner_elements, banners[1]);
 
-    banner_elements.SinglePullButton.addEventListener("click", () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`));
-    banner_elements.MultiPullButton.addEventListener("click", () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`));
+    banner_elements.SinglePullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`));
+    banner_elements.MultiPullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`));
 
-    function toggleButton(button, is_enabled) {
-        button.disabled = !is_enabled;
-    }
-
+    
     let iterator = 1;
+    const toggleButton = (button, is_enabled) => button.disabled = !is_enabled;
+
     banner_search_box.addEventListener("change", () => {
         const search = banner_search_box.value.toLowerCase();
         const index = banners.findLastIndex((b) => b.toLowerCase().includes(search));
@@ -101,29 +82,20 @@ function toggleElement(element, is_visible) {
         setBannerDetail(banner_elements, banners[index]);
         
     });
-    previous_button.addEventListener("click", () => {
-        if (iterator === 1)
-            toggleButton(previous_button, false);
+    const updatesButtonAndBanner = (caller_button, other_button, disable_button_condition, increment_iterator) => {
+        if (disable_button_condition)
+            toggleButton(caller_button, false);
         else {
-            toggleButton(next_button, true);
-            setBannerDetail(banner_elements, banners[--iterator]);
+            toggleButton(other_button, true);
+            setBannerDetail(banner_elements, banners[increment_iterator ? ++iterator : --iterator]);
         }
-    });
-    next_button.addEventListener("click", () => {
-        if (iterator === banners.length - 1)
-            toggleButton(next_button, false);
-        else {
-            toggleButton(previous_button, true);
-            setBannerDetail(banner_elements, banners[++iterator]);
-        }
-    });
+    };
+    previous_button.addEventListener(ce, () => updatesButtonAndBanner(previous_button, next_button, iterator === 1, false));
+    next_button.addEventListener(ce, () => updatesButtonAndBanner(next_button, previous_button, iterator === banners.length - 1, true));
 }
 
-
-const standard_single_button = document.getElementById("standard-single-pull-button");
-const standard_multi_button = document.getElementById("standard-multi-pull-button");
-standard_single_button.addEventListener("click", () => window.location.replace("gacha.html?singlepull"));
-standard_multi_button.addEventListener("click", () => window.location.replace("gacha.html"));
+document.getElementById("standard-single-pull-button").addEventListener(ce, () => window.location.replace("gacha.html?singlepull"));
+document.getElementById("standard-multi-pull-button").addEventListener(ce, () => window.location.replace("gacha.html"));
 
 
 {
@@ -170,13 +142,11 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
     };
 
     const assignCharactersToList = (manufacturer) => {
-        const profile_prefix = "images/character/profile";
-        
         for (let i = 0; i < max_wishlist_length; i++) {
             const wished_character_name = manufacturer.CurrentlyWishedCharacters[i];
             const banner_name = characters.find((c) => c.name === wished_character_name).bannerName;
             
-            setImage(manufacturer.WishListImageElements[i], `${profile_prefix}/${banner_name}.png`, wished_character_name);
+            setImage(manufacturer.WishListImageElements[i], `images/character/profile/${banner_name}.png`, wished_character_name);
         }
     };
 
@@ -191,15 +161,13 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
         let clicked_before = false;
         let img = new Image();
 
-        img.addEventListener("click", () => {
+        img.addEventListener(ce, () => {
             if (clicked_before) {
-                img.style.backgroundColor = "var(--select-character-profile-backcolour)";
-                img.style.opacity = 1;
+                img.style.opacity = 0.5;
                 character_selector.SelectedCharacters = character_selector.SelectedCharacters.filter((sc) => sc !== c.name);
             }
             else if (character_selector.SelectedCharacters.length < max_wishlist_length) {                
-                img.style.backgroundColor = "green";
-                img.style.opacity = 0.5;
+                img.style.opacity = 1;
                 character_selector.SelectedCharacters.push(c.name);
             }
             clicked_before = !clicked_before;
@@ -209,6 +177,14 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
         character_selector.Container.appendChild(img);
     });
     const toggleSelector = (manufacturer) => {
+        const toggleWishlistOpacity = (toggle) => {
+            let all = [manufacturers.Elysion, manufacturers.Missilis, manufacturers.PilgrimOverspec, manufacturers.Tetra];
+            if (toggle) 
+                all = all.filter((m) => m.Name !== manufacturer.Name)
+
+            all.map((m) => m.WishListImageElements).forEach((me) => Array.from(me).forEach((mi) => mi.style.opacity = toggle ? 0.5 : 1));
+        };
+        
         character_selector.IsOpen = !character_selector.IsOpen;
         
         if (!character_selector.IsOpen) {
@@ -216,6 +192,7 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
             
             if (character_selector.SelectedManufacturer === manufacturer.Name && character_selector.SelectedCharacters.length === max_wishlist_length) {
                 manufacturer.CurrentlyWishedCharacters = character_selector.SelectedCharacters;
+                
                 assignCharactersToList(manufacturer);
                 setWishList({
                     Pilgrim:  manufacturers.PilgrimOverspec.CurrentlyWishedCharacters,
@@ -225,17 +202,19 @@ standard_multi_button.addEventListener("click", () => window.location.replace("g
                 });
             }
             character_selector.SelectedManufacturer = null;
+            toggleWishlistOpacity(false);
         }
         else {
             createProfileElements(manufacturer);
             character_selector.Container.scrollIntoView();
             character_selector.SelectedManufacturer = manufacturer.Name;
+            toggleWishlistOpacity(true);
         }
         character_selector.SelectedCharacters = [];
     };
 
     [manufacturers.Elysion, manufacturers.Tetra, manufacturers.Missilis, manufacturers.PilgrimOverspec].forEach((m) => {
-        m.Container.addEventListener("click", () => toggleSelector(m));
+        m.Container.addEventListener(ce, () => toggleSelector(m));
         assignCharactersToList(m);
     });
 }
