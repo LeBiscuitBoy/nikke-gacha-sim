@@ -177,6 +177,7 @@ const characters = [
     new Character("Neon: Blue Ocean", false, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2025, 8, 4), true, new Date(2025, 8, 25)),
     new Character("Delta: Ninja Thief", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2025, 9, 16), true, new Date(2025, 9, 29)),
     new Character("Mast: Romantic Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2025, 0, 30), true, new Date(2025, 1, 19)),
+    new Character("Soline: Frost Ticket", false, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2025, 10, 19), true, new Date(2025, 11, 7)),
     new Character("Privaty: Unkind Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2024, 1, 5), true, new Date(2024, 2, 6)),
     new Character("Anchor: Innocent Maid", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2025, 1, 6), true, new Date(2025, 1, 27)),
     new Character("Emma: Tactical Upgrade", true, Character.Rarities.SSR, Character.Manufacturers.Elysion, new Date(2025, 7, 7), true, new Date(2025, 8, 4)),
