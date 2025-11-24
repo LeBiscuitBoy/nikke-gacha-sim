@@ -1,33 +1,36 @@
-import { getWishList, setWishList } from './savedata.js';
+import { getWishList, setWishList, setLastSelectedBannerIndex, getLastSelectedBannerIndex, setLastSelectedPageIndex, getLastSelectedPageIndex } from './savedata.js';
 import { Character, characters } from './chars.js';
 
 
 const ce = "click";
-const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
+const banners = characters.filter((c) => c.hasBanner).map((c) => {
+    return {
+        CharacterName: c.name,
+        BannerName: c.bannerName
+    }
+});
 const setImage = (img, url, title) => {
     img.src = url,
     img.title = title;
 }
-const setBannerDetail = (banner, banner_name) => {
-    banner.SanitizedName = banner_name.toLowerCase();
-    Character.IllegalImageChars.forEach((c) => banner.SanitizedName = banner.SanitizedName.replaceAll(c, ""));
-    
-    banner.Title.innerHTML = banner_name.toUpperCase();
-    setImage(banner.Image, `images/banners/${banner.SanitizedName}.png`, `Rate Up: ${banner_name}`);
-}
 
 {
-    const banner = {
+    const current_banner_elements = {
         Title: document.getElementById("current-banner-title"),
         Image: document.getElementById("current-banner-image"),
         SinglePullButton: document.getElementById("rate-up-single-pull-button"),
         MultiPullButton: document.getElementById("rate-up-multi-pull-button"),
-        SanitizedName: ""
+        Data: banners[0]
     };
-    setBannerDetail(banner, banners[0]);
+    const data = current_banner_elements.Data;
+    setImage(current_banner_elements.Image, 
+        `images/banners/${data.BannerName}.png`, `Rate Up: ${data.CharacterName}`);
+    current_banner_elements.Title.innerText = data.CharacterName.toUpperCase();
 
-    banner.SinglePullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner.SanitizedName}&singlepull`));
-    banner.MultiPullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner.SanitizedName}`));
+    current_banner_elements.SinglePullButton.addEventListener(ce, () => 
+        window.location.replace(`gacha.html?character=${data.BannerName}&singlepull`));
+    current_banner_elements.MultiPullButton.addEventListener(ce, () => 
+        window.location.replace(`gacha.html?character=${data.BannerName}`));
 }
 
 {
@@ -37,62 +40,66 @@ const setBannerDetail = (banner, banner_name) => {
         document.getElementById("standard-banner-container")
     ];
     const showIndexTab = (tab_index) => tabs.forEach((t, i) => t.style.display = (i === tab_index) ? "block" : "none");
+    function handleTabClick(index) {
+        showIndexTab(index);
+        setLastSelectedPageIndex(index);
+    }
 
-    document.getElementById("current-banner-button").addEventListener(ce, () => showIndexTab(0));
-    document.getElementById("previous-banners-button").addEventListener(ce, () => showIndexTab(1));
-    document.getElementById("standard-banner-button").addEventListener(ce, () => showIndexTab(2));
-
-    showIndexTab(0); // Default tab to show.
+    document.getElementById("current-banner-button").addEventListener(ce, () => handleTabClick(0));
+    document.getElementById("previous-banners-button").addEventListener(ce, () => handleTabClick(1));
+    document.getElementById("standard-banner-button").addEventListener(ce, () => handleTabClick(2));
+    showIndexTab(getLastSelectedPageIndex()); // Default tab to show.
 }
 
 
 { 
-    // Banner iterator
-    const previous_button = document.getElementById("previous-banner-button");
-    const next_button = document.getElementById("next-banner-button");
-    const banner_search_box = document.getElementById("banner-search-input");
-
-    const previous_banner = document.getElementById("previous-banners-container");
-    const banner_elements = {
-        Title: previous_banner.getElementsByClassName("banner-title")[0],
-        Image: previous_banner.getElementsByClassName("banner-image")[0],
-        SinglePullButton: previous_banner.getElementsByClassName("single-pull-button")[0],
-        MultiPullButton: previous_banner.getElementsByClassName("multi-pull-button")[0],
-        SanitizedName: ""
+    const scroll_params = {
+        behavior: "smooth",
+        block: "center"
     };
-    setBannerDetail(banner_elements, banners[1]);
+    const previous_banner_elements = {
+        Container: document.getElementById("previous-banners-container"),
+        SearchBox: document.getElementById("banner-search-input"),
+        Display: document.getElementById("previous-banner-display"),
+        SinglePullButton: function() { return this.Container.getElementsByClassName("single-pull-button")[0] },
+        MultiPullButton: function() { return this.Container.getElementsByClassName("multi-pull-button")[0] }
+    };
+    const idOfLeftMostBannerImage = () => {
+        const images = Array.from(previous_banner_elements.Display.getElementsByTagName("img"));
+        return images.filter((i) => i.x > 0)[0].id;
+    }
 
-    banner_elements.SinglePullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`));
-    banner_elements.MultiPullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`));
+    function handleClick(is_single) {
+        const char_id = idOfLeftMostBannerImage();
+        const address_prefix = "gacha.html?character=";
 
-    
-    let iterator = 1;
-    const toggleButton = (button, is_enabled) => button.disabled = !is_enabled;
+        window.location.replace(`${address_prefix}${banners[char_id].BannerName}${is_single ? "&singlepull" : ""}`)
+        setLastSelectedBannerIndex(char_id);
+    }
+    previous_banner_elements.SinglePullButton().addEventListener(ce, () => handleClick(true));
+    previous_banner_elements.MultiPullButton().addEventListener(ce, () => handleClick(false));
 
-    banner_search_box.addEventListener("change", () => {
-        const search = banner_search_box.value.toLowerCase();
-        const index = banners.findLastIndex((b) => b.toLowerCase().includes(search));
-        banner_search_box.value = "";
+    previous_banner_elements.SearchBox.addEventListener("change", () => {
+        const box = previous_banner_elements.SearchBox;
+        const banner_id = banners.findLastIndex((b) => b.BannerName.includes(box.value.toLowerCase()));
+        box.value = "";
         
-        if (index < 1) return; 
-        iterator = index;
-
-        toggleButton(previous_button, index > 1);
-        toggleButton(next_button, index < (banners.length - 1));
-        setBannerDetail(banner_elements, banners[index]);
-        
+        if (banner_id < 1) return; 
+        document.getElementById(banner_id).scrollIntoView(scroll_params);
     });
-    const updatesButtonAndBanner = (caller_button, other_button, disable_button_condition, increment_iterator) => {
-        if (disable_button_condition)
-            toggleButton(caller_button, false);
-        else {
-            toggleButton(other_button, true);
-            setBannerDetail(banner_elements, banners[increment_iterator ? ++iterator : --iterator]);
-        }
-    };
-    previous_button.addEventListener(ce, () => updatesButtonAndBanner(previous_button, next_button, iterator === 1, false));
-    next_button.addEventListener(ce, () => updatesButtonAndBanner(next_button, previous_button, iterator === banners.length - 1, true));
+
+    // Render all character banners.
+    for (let i = 1; i < banners.length; i++) {
+        let img = new Image();
+        img.setAttribute("id", i);
+        img.classList.add("banner-image");
+
+        setImage(img, `images/banners/${banners[i].BannerName}.png`, `Rate Up: ${banners[i].CharacterName}`);
+        previous_banner_elements.Display.appendChild(img);
+    }
+    document.getElementById(getLastSelectedBannerIndex()).scrollIntoView(scroll_params);
 }
+
 
 document.getElementById("standard-single-pull-button").addEventListener(ce, () => window.location.replace("gacha.html?singlepull"));
 document.getElementById("standard-multi-pull-button").addEventListener(ce, () => window.location.replace("gacha.html"));

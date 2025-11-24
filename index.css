@@ -19,6 +19,7 @@ img {
 #selector {
     top: 5px;
     width: 100%;
+    margin: 5px;
     display: flex;
     position: fixed;
     overflow: scroll;
@@ -59,19 +60,30 @@ img {
 .banner-display {
     width: 50%;
     margin: auto;
+    padding: 50px;
+    overflow: auto;
     min-width: 300px;
+    text-wrap-mode: nowrap;
+    scroll-snap-type: x mandatory;
 }
 .banner-title {
     margin-bottom: 0;
     text-align: center;
-    color: var(--special-banner-title-colour);
     font: bold 4rem var(--text-font-family);
+    color: var(--special-banner-title-colour);
 }
 .banner-image {
-    margin-top: 5%;
+    margin-top: 10%;
+    cursor: pointer;  
     border-radius: 3px;
+    margin-right: 100px;
+    scroll-snap-align: center;
     animation: glow-pulse 5s ease-in-out infinite;
-    box-shadow: 0 0 25px 10px var(--special-banner-title-colour);       
+    box-shadow: 0 0 25px 10px var(--special-banner-title-colour);   
+}
+#current-banner-image, #standard-banner-image {
+    margin: 0;
+    scroll-snap-align: unset;
 }
 @keyframes glow-pulse {
     50% { box-shadow: 0 0 40px 10px rgb(253, 228, 86); }
