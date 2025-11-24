@@ -225,3 +225,5 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
         assignCharactersToList(m);
     });
 }
+
+document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 24).toLocaleDateString()}`;

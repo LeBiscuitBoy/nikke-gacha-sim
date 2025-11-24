@@ -211,3 +211,10 @@ img {
     background-color: var(--select-character-profile-backcolour);
     border: 1px solid var(--banner-selection-control-backcolour);
 }
+
+#latest-update {
+    position: sticky;
+    margin-left: 1%;
+    color: var(--banner-selection-control-backcolour);
+    font: bold 1rem var(--text-font-family);
+}
