@@ -31,16 +31,14 @@ img {
     width: 172px;
     display: flex;
     cursor: pointer;
-    min-width: 172px;
     border-radius: 5px;
     margin: 0 5px 0 5px;
     align-items: center;
     justify-content: center;
 }
 .option-image-container {
-    width: 10%;
-    min-width: 32px;
     margin-right: 2%;
+    width: max(32px, 10%);
 }
 .option-text {
     margin: 0 0 0 2%;
@@ -58,11 +56,10 @@ img {
     width: 100%;
 }
 .banner-display {
-    width: 50%;
     margin: auto;
     padding: 50px;
     overflow: auto;
-    min-width: 300px;
+    width: max(300px, 50%);
     text-wrap-mode: nowrap;
     scroll-snap-type: x mandatory;
 }
@@ -92,12 +89,11 @@ img {
 
 
 .option-buttons {
-    width: 100%;
     display: flex;
     margin-top: 1%;
-    min-width: 400px; 
     overflow: scroll;
     padding: 20px 0 20px 0;
+    width: max(400px, 100%);
     justify-content: space-evenly;
 }
 .currency-text {
@@ -117,15 +113,13 @@ img {
 .single-pull-button, .multi-pull-button {
     width: 160px;
     display: flex;
-    min-width: 160px;
     border-color: white;
     justify-content: space-between;
     background-color: rgb(113, 186, 255);
 }
 .currency-image-container {
-    width: 30%;
     height: 100%;
-    min-width: 32px;
+    width: max(32px, 30%);
     position: relative;
     display: inline-block;
 }
@@ -137,16 +131,14 @@ img {
 }
 .character-selection-button {
     width: 120px;
-    min-width: 120px;
     background-color: var(--banner-selection-control-backcolour);
 }
 .character-selection-button p {
     margin: 0;
 }
 #banner-search {
-    width: 25%;
+    width: max(300px, 25%);
     margin: auto;
-    min-width: 300px;
 }
 #banner-search-input {
     border: 0;
@@ -170,18 +162,16 @@ img {
     100% { box-shadow: 0 0 25px 10px var(--standard-banner-title-colour); }
 }
 #wishlist-container {
-    width: 60%;
     margin: auto;
     margin-top: 2%;
-    min-width: 260px;
+    width: max(260px, 60%);
     text-align: center;
 }
 .wishlist-manufacturer {
-    width: 48%;
     margin: 2px;
     cursor: pointer;
-    min-width: 250px;
     border-radius: 4px;
+    width: max(250px, 48%);
     display: inline-block;
     border: 2px solid var(--banner-selection-control-backcolour);
 }
@@ -212,12 +202,11 @@ img {
     overflow: scroll;
 }
 #wishlist-character-selector img {
-    width: 10%;
     margin: 2px;
     opacity: 0.5;
-    min-width: 64px;
     cursor: pointer;
     border-radius: 4px;
+    width: max(64px, 10%);
     display: inline-block;
     background-color: var(--select-character-profile-backcolour);
     border: 1px solid var(--banner-selection-control-backcolour);
