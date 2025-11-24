@@ -1,5 +1,4 @@
-import { Character, characters } from './chars.js';
-import { characterOnWishlist } from './savedata.js';
+import { getManufacturerMoldPool, getRateUpPool, getStandardPool } from './pools.js';
 
 
 const lineup_elements = Array.from(document.getElementsByClassName("result-icon")).map((e) => {
@@ -21,19 +20,9 @@ const result_elements = Array.from(document.getElementsByClassName("result-conta
     }
 }).sort((l, r) => l.id - r.id);
 
-
 const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const roundToNearestHalf = (num) => {
-    const flooredNum = Math.floor(num);
-    const decimalPortion = Math.abs(num - flooredNum);
 
-    if (decimalPortion > 0.75) return flooredNum + 1;
-    if (decimalPortion > 0.25) return flooredNum + 0.5;
-    return flooredNum;
-}
-
-
-function get_character_from_pool(pools, roll, has_banner_character) {
+function get_character_from_pool(pools, roll, has_rate_up_character) {
     if (roll <= pools.R.Rate)
         return getRandomElementFromArray(pools.R.Characters);
     else if (roll <= (pools.R.Rate + pools.SR.Rate))
@@ -41,7 +30,7 @@ function get_character_from_pool(pools, roll, has_banner_character) {
     else if (roll <= (pools.R.Rate + pools.SR.Rate + pools.SSR.Rate))
         return getRandomElementFromArray(pools.SSR.Characters);
     else {
-        if (!has_banner_character)
+        if (!has_rate_up_character)
             return getRandomElementFromArray(pools.Special.Characters);
 
         if (roll <= pools.R.Rate + pools.SR.Rate + pools.SSR.Rate + pools.Special.Rate)  
@@ -50,76 +39,21 @@ function get_character_from_pool(pools, roll, has_banner_character) {
             return pools.RateUp.Character;
     }
 };
-
-function special_pull(rate_up_character, is_ten_pull = true) {
-    const pool_filter = (character, rarity) => character.isInStandardPool && character.rarity === rarity && character.dateAvailable <= rate_up_character.dateAvailable;
-    const isSpecial = (character) => (character.overspec || character.manufacturer === Character.Manufacturers.Pilgrim);
-
-    const pools = {
-        R: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.R)),
-            Rate: 53
-        },
-        SR: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SR)),
-            Rate: 43
-        },
-        SSR: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && 
-            !isSpecial(c) && c.name !== rate_up_character.name),
-            Rate: isSpecial(rate_up_character) ? 2.5 : 1.75
-        },
-        Special: {
-            Characters : characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && 
-                isSpecial(c) && c.name !== rate_up_character.name),
-            Rate: isSpecial(rate_up_character) ? 0.5 : 0.25
-        },
-        RateUp: {
-            Character: rate_up_character,
-            Rate: isSpecial(rate_up_character) ? 1 : 2
-        }
-    };
-
+function roll_against_pool(pool, is_ten_pull, has_rate_up_character) {
+    const roll = () => get_character_from_pool(pool, Math.random() * 100, has_rate_up_character);
+    
     if (!is_ten_pull)
-        return [ get_character_from_pool(pools, Math.random() * 100, true) ];
+        return [ roll() ];
 
     let pulls = [];
     for (let r = 0; r < 10; r++)
-        pulls.push(get_character_from_pool(pools, Math.random() * 100, true));
-
-    return pulls;
-}
-
-function standard_pull(is_ten_pull = true) {
-    const pool_filter = (character, rarity) => character.isInStandardPool && character.rarity === rarity;
-    const is_special_character = (character) => character.manufacturer === Character.Manufacturers.Pilgrim || character.overspec;
-    const pools = {
-        R: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.R)),
-            Rate: 53
-        },
-        SR: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SR)),
-            Rate: 43
-        },
-        SSR: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && characterOnWishlist(c.name) && !is_special_character(c)),
-            Rate: 3.5
-        },
-        Special: {
-            Characters: characters.filter((c) => pool_filter(c, Character.Rarities.SSR) && characterOnWishlist(c.name) && is_special_character(c)),
-            Rate: 0.5
-        }
-    };
-
-    if (!is_ten_pull)
-        return [ get_character_from_pool(pools,roundToNearestHalf(Math.random() * 100), false) ];
-
-    let pulls = [];
-    for (let r = 0; r < 10; r++)
-        pulls.push(get_character_from_pool(pools, roundToNearestHalf(Math.random() * 100), false));
+        pulls.push(roll());
     return pulls;
 }
 
 
-export { result_elements, lineup_elements, standard_pull, special_pull };
+const special_pull = (rate_up_character, is_ten_pull = true) => roll_against_pool(getRateUpPool(rate_up_character), is_ten_pull, true);
+const standard_pull = (is_ten_pull = true) => roll_against_pool(getStandardPool(), is_ten_pull, false);
+const mold_pull = (manufacturer) => roll_against_pool(getManufacturerMoldPool(manufacturer), false, false);
+
+export { result_elements, lineup_elements, standard_pull, special_pull, mold_pull };

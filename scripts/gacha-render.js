@@ -1,5 +1,5 @@
 import { Character, characters } from './chars.js';
-import { result_elements, lineup_elements, standard_pull, special_pull  } from './gacha.js';
+import { result_elements, lineup_elements, standard_pull, special_pull, mold_pull  } from './gacha.js';
 import { hasCharacter, addCharacterToCollection, getCharacterPullCount } from './savedata.js';
 
 
