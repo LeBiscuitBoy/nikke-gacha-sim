@@ -20,6 +20,7 @@ img {
     top: 5px;
     width: 100%;
     margin: 5px;
+    padding-bottom: 16px;
     display: flex;
     position: fixed;
     overflow: scroll;
@@ -29,6 +30,7 @@ img {
     border: 0;
     padding: 0;
     width: 172px;
+    min-width: 172px;
     display: flex;
     cursor: pointer;
     border-radius: 5px;
