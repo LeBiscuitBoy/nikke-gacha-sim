@@ -9,6 +9,10 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => {
         BannerName: c.bannerName
     }
 });
+const scroll_params = {
+    behavior: "smooth",
+    block: "center"
+};
 const setImage = (img, url, title) => {
     img.src = url,
     img.title = title;
@@ -53,10 +57,6 @@ const setImage = (img, url, title) => {
 
 
 { 
-    const scroll_params = {
-        behavior: "smooth",
-        block: "center"
-    };
     const previous_banner_elements = {
         Container: document.getElementById("previous-banners-container"),
         SearchBox: document.getElementById("banner-search-input"),
@@ -212,9 +212,10 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
         }
         else {
             createProfileElements(manufacturer);
-            character_selector.Container.scrollIntoView();
+            character_selector.Container.scrollIntoView(scroll_params);
             character_selector.SelectedManufacturer = manufacturer.Name;
             toggleWishlistOpacity(true);
+
         }
         character_selector.SelectedCharacters = [];
     };
