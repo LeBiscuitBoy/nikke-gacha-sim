@@ -183,3 +183,9 @@ body {
     font-family: var(--font-family);
     color: var(--rerecruit-colour);
 }
+
+.single-sparkle-bottom {
+    z-index: -1;
+    transform: scaleY(-1);
+    position: relative;
+}

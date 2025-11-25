@@ -40,11 +40,9 @@ function setCardElementDetail(element, character, from_single_pull = false) {
     if (from_single_pull) {
         const bottom_glow = new Image();
         bottom_glow.src = getGlowAsset();
-        bottom_glow.style.position = "relative";
-        bottom_glow.style.zIndex = "-1";
-        bottom_glow.style.transform = "scaleY(-1)";
-        element.self.appendChild(bottom_glow);
+        bottom_glow.classList.add("single-sparkle-bottom");
 
+        element.self.appendChild(bottom_glow);
         element.new_character.style.top = "29%";
         element.spare_body.style.bottom = "27%";
     }
@@ -133,8 +131,7 @@ const is_rate_up = (rate_up_character != null);
 
         element.icon.src = getIconForRarity(pulls[pull].rarity);
         element.self.style.visibility = "visible";
-        element.glow.style.visibility = pulls[pull].rarity === Character.Rarities.SSR 
-            ? "visible" : "hidden";
+        element.glow.style.visibility = pulls[pull].rarity === Character.Rarities.SSR ? "visible" : "hidden";
         
         pull += 1;
         if (pull === pulls.length) {
@@ -158,10 +155,3 @@ const is_rate_up = (rate_up_character != null);
         }
     }, 55);
 }
-
-
-const confirm_button = document.getElementById("confirm-button");
-const recruit_again_button = document.getElementById("recruit-again-button");
-
-recruit_again_button.addEventListener("click", () => location.reload());
-confirm_button.addEventListener("click", () => window.location.replace('index.html'));
