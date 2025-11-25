@@ -30,9 +30,9 @@ img {
     border: 0;
     padding: 0;
     width: 172px;
-    min-width: 172px;
     display: flex;
     cursor: pointer;
+    min-width: 172px;
     border-radius: 5px;
     margin: 0 5px 0 5px;
     align-items: center;
@@ -99,16 +99,18 @@ img {
     justify-content: space-evenly;
 }
 .currency-text {
-    margin: 0 5px 0 0;
+    margin: 4px 10px 4px 0;
     display: inline-block;
 }
-.option-buttons button {
+.option-buttons a {
     color: white;
     cursor: pointer;
-    border-width: 1px;
+    border-width: 2px;
     align-items: center;
     margin: 0 5px 0 5px;
+    text-decoration: none;
     text-wrap-mode: nowrap;
+    border: 2px solid white;
     box-shadow: 0 10px rgb(17, 17, 17);
     font: bold 1rem var(--text-font-family);
 }
@@ -127,7 +129,7 @@ img {
 }
 .currency-image {
     left: 5%;
-    top: -70%;
+    top: -50%;
     width: 130%;
     position: absolute;
 }

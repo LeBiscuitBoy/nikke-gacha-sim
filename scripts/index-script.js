@@ -2,7 +2,7 @@ import { getWishList, setWishList, setLastSelectedBannerIndex, getLastSelectedBa
 import { Character, characters } from './chars.js';
 
 
-const ce = "click";
+const gachaUrl = "gacha.html";
 const banners = characters.filter((c) => c.hasBanner).map((c) => {
     return {
         CharacterName: c.name,
@@ -13,96 +13,112 @@ const scroll_params = {
     behavior: "smooth",
     block: "center"
 };
+const navigation_page_ids = {
+    NewestBanner: 0,
+    PreviousBanners: 1,
+    StandardBanner: 2,
+    ClearData: 3
+};
 const setImage = (img, url, title) => {
     img.src = url,
     img.title = title;
 }
+const searchParentFromChild = (child_element, parent_tag_name, max_search_depth) => {
+    let i = 0;
+    let target = child_element;
 
-{
-    const current_banner_elements = {
-        Title: document.getElementById("current-banner-title"),
-        Image: document.getElementById("current-banner-image"),
-        SinglePullButton: document.getElementById("rate-up-single-pull-button"),
-        MultiPullButton: document.getElementById("rate-up-multi-pull-button"),
-        Data: banners[0]
-    };
-    const data = current_banner_elements.Data;
-    setImage(current_banner_elements.Image, 
-        `images/banners/${data.BannerName}.png`, `Rate Up: ${data.CharacterName}`);
-    current_banner_elements.Title.innerText = data.CharacterName.toUpperCase();
+    while (target.tagName !== parent_tag_name && i++ !== max_search_depth)
+        target = target.parentElement;
+    return target.tagName === parent_tag_name ? target : null;
+};
 
-    current_banner_elements.SinglePullButton.addEventListener(ce, () => 
-        window.location.replace(`gacha.html?character=${data.BannerName}&singlepull`));
-    current_banner_elements.MultiPullButton.addEventListener(ce, () => 
-        window.location.replace(`gacha.html?character=${data.BannerName}`));
+
+document.getElementById("standard-multi-pull-button").href = gachaUrl;
+document.getElementById("standard-single-pull-button").href = `${gachaUrl}?singlepull`;
+
+{   
+    const newest = banners[0]; 
+    const url = `${gachaUrl}?character=${newest.BannerName}`;
+    
+    document.getElementById("current-banner-title").innerText = newest.CharacterName.toUpperCase();
+    document.getElementById("rate-up-single-pull-button").href = `${url}&singlepull`;
+    document.getElementById("rate-up-multi-pull-button").href = url;
+    setImage(document.getElementById("current-banner-image"), `images/banners/${newest.BannerName}.png`, `Rate Up: ${newest.CharacterName}`);
 }
 
 {
+    const nav_bar = document.getElementById("selector");
     const tabs = [
         document.getElementById("current-banner-container"), 
         document.getElementById("previous-banners-container"), 
         document.getElementById("standard-banner-container")
     ];
     const showIndexTab = (tab_index) => tabs.forEach((t, i) => t.style.display = (i === tab_index) ? "block" : "none");
-    function handleTabClick(index) {
-        showIndexTab(index);
-        setLastSelectedPageIndex(index);
-    }
 
-    document.getElementById("current-banner-button").addEventListener(ce, () => handleTabClick(0));
-    document.getElementById("previous-banners-button").addEventListener(ce, () => handleTabClick(1));
-    document.getElementById("standard-banner-button").addEventListener(ce, () => handleTabClick(2));
+    nav_bar.addEventListener("click", (ev) => {
+        if (ev.target.tagName === "NAV") return;
+
+        const button = searchParentFromChild(ev.target, "BUTTON", 2);
+        if (button == null) return;
+
+        Array.from(nav_bar.children).map((c) => c.id).forEach((id, i) => {
+            if (id !== button.id) return;
+            if (i === navigation_page_ids.ClearData)
+                localStorage.clear();
+            else {
+                showIndexTab(i);
+                setLastSelectedPageIndex(i);
+            }
+        });
+    });
+
     showIndexTab(getLastSelectedPageIndex()); // Default tab to show.
 }
 
-
 { 
-    const previous_banner_elements = {
-        Container: document.getElementById("previous-banners-container"),
-        SearchBox: document.getElementById("banner-search-input"),
-        Display: document.getElementById("previous-banner-display"),
-        SinglePullButton: function() { return this.Container.getElementsByClassName("single-pull-button")[0] },
-        MultiPullButton: function() { return this.Container.getElementsByClassName("multi-pull-button")[0] }
-    };
-    const idOfLeftMostBannerImage = () => {
-        const images = Array.from(previous_banner_elements.Display.getElementsByTagName("img"));
-        return images.filter((i) => i.x > 0)[0].id;
-    }
+    const createBannerImage = (id) => {
+        let img = new Image();
+        img.setAttribute("id", id);
+        img.classList.add("banner-image");
+        return img;
+    } 
 
-    function handleClick(is_single) {
-        const char_id = idOfLeftMostBannerImage();
-        const address_prefix = "gacha.html?character=";
+    const buttons = document.getElementById("previous-banner-recruitment-options").getElementsByTagName("a");
+    setInterval(() => {
+        if (getLastSelectedPageIndex() !== navigation_page_ids.PreviousBanners) return 
+        const idOfLeftMostBannerImage = () => Number(Array.from(
+            document.getElementById("previous-banner-display").getElementsByTagName("img")).filter((i) => i.x > 0)[0].id);
 
-        window.location.replace(`${address_prefix}${banners[char_id].BannerName}${is_single ? "&singlepull" : ""}`)
-        setLastSelectedBannerIndex(char_id);
-    }
-    previous_banner_elements.SinglePullButton().addEventListener(ce, () => handleClick(true));
-    previous_banner_elements.MultiPullButton().addEventListener(ce, () => handleClick(false));
+        const banner_index = idOfLeftMostBannerImage();
+        const banner = banners[banner_index];
 
-    previous_banner_elements.SearchBox.addEventListener("change", () => {
-        const box = previous_banner_elements.SearchBox;
-        const banner_id = banners.findLastIndex((b) => b.BannerName.includes(box.value.toLowerCase()));
-        box.value = "";
+        buttons[1].href = `${gachaUrl}?character=${banner.BannerName}`;
+        buttons[0].href = `${gachaUrl}?character=${banner.BannerName}&singlepull`;
+
+        if (banner_index !== getLastSelectedBannerIndex())
+            setLastSelectedBannerIndex(banner_index);
+    }, 500);
+
+    const search_box = document.getElementById("banner-search-input");
+    search_box.addEventListener("change", () => {
+        const banner_id = banners.findLastIndex((b) => b.BannerName.includes(search_box.value.toLowerCase()));
+        search_box.value = "";
         
         if (banner_id < 1) return; 
         document.getElementById(banner_id).scrollIntoView(scroll_params);
     });
 
     // Render all character banners.
+    const banner_display = document.getElementById("previous-banner-display");
     for (let i = 1; i < banners.length; i++) {
-        let img = new Image();
-        img.setAttribute("id", i);
-        img.classList.add("banner-image");
-
+        const img = createBannerImage(i);
         setImage(img, `images/banners/${banners[i].BannerName}.png`, `Rate Up: ${banners[i].CharacterName}`);
-        previous_banner_elements.Display.appendChild(img);
+        banner_display.appendChild(img);
     }
     document.getElementById(getLastSelectedBannerIndex()).scrollIntoView(scroll_params);
 }
 
 
-document.getElementById("standard-single-pull-button").addEventListener(ce, () => window.location.replace("gacha.html?singlepull"));
-document.getElementById("standard-multi-pull-button").addEventListener(ce, () => window.location.replace("gacha.html"));
 
 
 {
@@ -168,7 +184,7 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
         let clicked_before = false;
         let img = new Image();
 
-        img.addEventListener(ce, () => {
+        img.addEventListener("click", () => {
             if (clicked_before) {
                 img.style.opacity = 0.5;
                 character_selector.SelectedCharacters = character_selector.SelectedCharacters.filter((sc) => sc !== c.name);
@@ -221,9 +237,9 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
     };
 
     [manufacturers.Elysion, manufacturers.Tetra, manufacturers.Missilis, manufacturers.PilgrimOverspec].forEach((m) => {
-        m.Container.addEventListener(ce, () => toggleSelector(m));
+        m.Container.addEventListener("click", () => toggleSelector(m));
         assignCharactersToList(m);
     });
 }
 
-document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 24).toLocaleDateString()}`;
+document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 25).toLocaleDateString()}`;
