@@ -4,6 +4,7 @@
     --banner-selection-control-backcolour: rgb(70, 70, 70);
     --text-font-family: Verdana, Geneva, Tahoma, sans-serif;
     --select-character-profile-backcolour: rgb(164, 211, 252);
+    --pull-button-backcolour: rgb(113, 186, 255);
 }
 
 
@@ -27,16 +28,17 @@ img {
     justify-content:left;
 }
 .option-button {
-    border: 0;
     padding: 0;
-    width: 172px;
+    width: 176px;
     display: flex;
     cursor: pointer;
     min-width: 172px;
-    border-radius: 5px;
-    margin: 0 5px 0 5px;
+    border-radius: 3px;
+    margin: 0 2px 0 2px;
     align-items: center;
     justify-content: center;
+    border: 2px solid white;
+    background-color: var(--pull-button-backcolour);
 }
 .option-image-container {
     margin-right: 2%;
@@ -119,7 +121,7 @@ img {
     display: flex;
     border-color: white;
     justify-content: space-between;
-    background-color: rgb(113, 186, 255);
+    background-color: var(--pull-button-backcolour);
 }
 .currency-image-container {
     height: 100%;
