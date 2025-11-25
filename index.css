@@ -18,7 +18,7 @@ img {
 
 
 #selector {
-    top: 5px;
+    top: 6px;
     width: 100%;
     margin: 5px;
     padding-bottom: 16px;
@@ -233,7 +233,7 @@ img {
 }
 
 #latest-update {
-    margin-left: 1%;
+    margin-left: 10px;
     font: bold 1rem var(--text-font-family);
     color: var(--banner-selection-control-backcolour);
 }
