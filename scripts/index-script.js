@@ -1,101 +1,130 @@
-import { getWishList, setWishList } from './savedata.js';
-import { Character, characters } from './chars.js';
+import { getWishList, setWishList, setLastSelectedBannerIndex, getLastSelectedBannerIndex, setLastSelectedPageIndex, getLastSelectedPageIndex } from './savedata.js';
+import { characters, rarities, manufacturers } from './chars.js';
 
 
-const ce = "click";
-const banners = characters.filter((c) => c.hasBanner).map((c) => c.name);
+const gachaUrl = "gacha.html";
+const banners = characters.filter((c) => c.hasBanner).map((c) => {
+    return {
+        CharacterName: c.name,
+        BannerName: c.bannerName
+    }
+});
+const scroll_params = {
+    behavior: "smooth",
+    block: "center"
+};
+const navigation_page_ids = {
+    NewestBanner: 0,
+    PreviousBanners: 1,
+    StandardBanner: 2,
+    Mold: 3,
+    ClearData: 4
+};
 const setImage = (img, url, title) => {
     img.src = url,
     img.title = title;
 }
-const setBannerDetail = (banner, banner_name) => {
-    banner.SanitizedName = banner_name.toLowerCase();
-    Character.IllegalImageChars.forEach((c) => banner.SanitizedName = banner.SanitizedName.replaceAll(c, ""));
+const searchParentFromChild = (child_element, parent_tag_name, max_search_depth) => {
+    let i = 0;
+    let target = child_element;
+
+    while (target.tagName !== parent_tag_name && i++ !== max_search_depth)
+        target = target.parentElement;
+    return target.tagName === parent_tag_name ? target : null;
+};
+
+
+document.getElementById("standard-multi-pull-button").href = `${gachaUrl}?standard`;
+document.getElementById("standard-single-pull-button").href = `${gachaUrl}?standard&singlepull`;
+Array.from(document.getElementById("mold-padding").children).forEach((e) => e.href = `${gachaUrl}?mold=${e.id.slice(0, e.id.indexOf("-"))}`);
+
+{   
+    const newest = banners[0]; 
+    const url = `${gachaUrl}?rate-up=${newest.BannerName}`;
     
-    banner.Title.innerHTML = banner_name.toUpperCase();
-    setImage(banner.Image, `images/banners/${banner.SanitizedName}.png`, `Rate Up: ${banner_name}`);
+    document.getElementById("current-banner-title").innerText = newest.CharacterName.toUpperCase();
+    document.getElementById("rate-up-single-pull-button").href = `${url}&singlepull`;
+    document.getElementById("rate-up-multi-pull-button").href = url;
+    setImage(document.getElementById("current-banner-image"), `images/banners/${newest.BannerName}.png`, `Rate Up: ${newest.CharacterName}`);
 }
 
 {
-    const banner = {
-        Title: document.getElementById("current-banner-title"),
-        Image: document.getElementById("current-banner-image"),
-        SinglePullButton: document.getElementById("rate-up-single-pull-button"),
-        MultiPullButton: document.getElementById("rate-up-multi-pull-button"),
-        SanitizedName: ""
-    };
-    setBannerDetail(banner, banners[0]);
-
-    banner.SinglePullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner.SanitizedName}&singlepull`));
-    banner.MultiPullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner.SanitizedName}`));
-}
-
-{
+    const nav_bar = document.getElementById("selector");
     const tabs = [
         document.getElementById("current-banner-container"), 
         document.getElementById("previous-banners-container"), 
-        document.getElementById("standard-banner-container")
+        document.getElementById("standard-banner-container"),
+        document.getElementById("mold-container")
     ];
     const showIndexTab = (tab_index) => tabs.forEach((t, i) => t.style.display = (i === tab_index) ? "block" : "none");
 
-    document.getElementById("current-banner-button").addEventListener(ce, () => showIndexTab(0));
-    document.getElementById("previous-banners-button").addEventListener(ce, () => showIndexTab(1));
-    document.getElementById("standard-banner-button").addEventListener(ce, () => showIndexTab(2));
+    nav_bar.addEventListener("click", (ev) => {
+        if (ev.target.tagName === "NAV") return;
 
-    showIndexTab(0); // Default tab to show.
+        const button = searchParentFromChild(ev.target, "BUTTON", 2);
+        if (button == null) return;
+
+        Array.from(nav_bar.children).map((c) => c.id).forEach((id, i) => {
+            if (id !== button.id) return;
+            if (i === navigation_page_ids.ClearData)
+                localStorage.clear();
+            else {
+                showIndexTab(i);
+                setLastSelectedPageIndex(i);
+
+                if (i === navigation_page_ids.Mold)
+                    document.getElementById("hidden-mold").style.display = (Math.random() >= 0.8 ? "block" : "none");
+            }
+        });
+    });
+
+    showIndexTab(getLastSelectedPageIndex()); // Default tab to show.
 }
-
 
 { 
-    // Banner iterator
-    const previous_button = document.getElementById("previous-banner-button");
-    const next_button = document.getElementById("next-banner-button");
-    const banner_search_box = document.getElementById("banner-search-input");
+    const createBannerImage = (id) => {
+        let img = new Image();
+        img.setAttribute("id", id);
+        img.classList.add("banner-image");
+        return img;
+    } 
 
-    const previous_banner = document.getElementById("previous-banners-container");
-    const banner_elements = {
-        Title: previous_banner.getElementsByClassName("banner-title")[0],
-        Image: previous_banner.getElementsByClassName("banner-image")[0],
-        SinglePullButton: previous_banner.getElementsByClassName("single-pull-button")[0],
-        MultiPullButton: previous_banner.getElementsByClassName("multi-pull-button")[0],
-        SanitizedName: ""
-    };
-    setBannerDetail(banner_elements, banners[1]);
+    const buttons = document.getElementById("previous-banner-recruitment-options").getElementsByTagName("a");
+    setInterval(() => {
+        if (getLastSelectedPageIndex() !== navigation_page_ids.PreviousBanners) return 
+        const idOfLeftMostBannerImage = () => Number(Array.from(
+            document.getElementById("previous-banner-display").getElementsByTagName("img")).filter((i) => i.x > 0)[0].id);
 
-    banner_elements.SinglePullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}&singlepull`));
-    banner_elements.MultiPullButton.addEventListener(ce, () => window.location.replace(`gacha.html?character=${banner_elements.SanitizedName}`));
+        const banner_index = idOfLeftMostBannerImage();
+        const banner = banners[banner_index];
 
-    
-    let iterator = 1;
-    const toggleButton = (button, is_enabled) => button.disabled = !is_enabled;
+        buttons[1].href = `${gachaUrl}?rate-up=${banner.BannerName}`;
+        buttons[0].href = `${gachaUrl}?rate-up=${banner.BannerName}&singlepull`;
 
-    banner_search_box.addEventListener("change", () => {
-        const search = banner_search_box.value.toLowerCase();
-        const index = banners.findLastIndex((b) => b.toLowerCase().includes(search));
-        banner_search_box.value = "";
+        if (banner_index !== getLastSelectedBannerIndex())
+            setLastSelectedBannerIndex(banner_index);
+    }, 500);
+
+    const search_box = document.getElementById("banner-search-input");
+    search_box.addEventListener("change", () => {
+        const banner_id = banners.findLastIndex((b) => b.BannerName.includes(search_box.value.toLowerCase()));
+        search_box.value = "";
         
-        if (index < 1) return; 
-        iterator = index;
-
-        toggleButton(previous_button, index > 1);
-        toggleButton(next_button, index < (banners.length - 1));
-        setBannerDetail(banner_elements, banners[index]);
-        
+        if (banner_id < 1) return; 
+        document.getElementById(banner_id).scrollIntoView(scroll_params);
     });
-    const updatesButtonAndBanner = (caller_button, other_button, disable_button_condition, increment_iterator) => {
-        if (disable_button_condition)
-            toggleButton(caller_button, false);
-        else {
-            toggleButton(other_button, true);
-            setBannerDetail(banner_elements, banners[increment_iterator ? ++iterator : --iterator]);
-        }
-    };
-    previous_button.addEventListener(ce, () => updatesButtonAndBanner(previous_button, next_button, iterator === 1, false));
-    next_button.addEventListener(ce, () => updatesButtonAndBanner(next_button, previous_button, iterator === banners.length - 1, true));
+
+    // Render all character banners.
+    const banner_display = document.getElementById("previous-banner-display");
+    for (let i = 1; i < banners.length; i++) {
+        const img = createBannerImage(i);
+        setImage(img, `images/banners/${banners[i].BannerName}.png`, `Rate Up: ${banners[i].CharacterName}`);
+        banner_display.appendChild(img);
+    }
+    document.getElementById(getLastSelectedBannerIndex()).scrollIntoView(scroll_params);
 }
 
-document.getElementById("standard-single-pull-button").addEventListener(ce, () => window.location.replace("gacha.html?singlepull"));
-document.getElementById("standard-multi-pull-button").addEventListener(ce, () => window.location.replace("gacha.html"));
+
 
 
 {
@@ -103,40 +132,40 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
     const wishlist = getWishList();
     const max_wishlist_length = 5;
     const charFilter = (c, manufacturer) => c.isInStandardPool && c.manufacturer === manufacturer && 
-        c.rarity === Character.Rarities.SSR && !c.overspec;
+        c.rarity === rarities.SSR && !c.overspec;
 
-    const manufacturers = {
+    const types = {
         Elysion: {
-            Name: Character.Manufacturers.Elysion,
+            Name: manufacturers.Elysion,
             Container: document.getElementById("wishlist-elysion"),
             WishListImageElements: document.getElementById("wishlist-elysion")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => charFilter(c, Character.Manufacturers.Elysion)),
+            WishableCharacters: characters.filter((c) => charFilter(c, manufacturers.Elysion)),
             CurrentlyWishedCharacters: wishlist.Elysion
         },
         Tetra: {
-            Name: Character.Manufacturers.Tetra,
+            Name: manufacturers.Tetra,
             Container: document.getElementById("wishlist-tetra"),
             WishListImageElements: document.getElementById("wishlist-tetra")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => charFilter(c, Character.Manufacturers.Tetra)),
+            WishableCharacters: characters.filter((c) => charFilter(c, manufacturers.Tetra)),
             CurrentlyWishedCharacters: wishlist.Tetra
         },
         Missilis: {
-            Name: Character.Manufacturers.Missilis,
+            Name: manufacturers.Missilis,
             Container: document.getElementById("wishlist-missilis"),
             WishListImageElements: document.getElementById("wishlist-missilis")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => charFilter(c, Character.Manufacturers.Missilis)),
+            WishableCharacters: characters.filter((c) => charFilter(c, manufacturers.Missilis)),
             CurrentlyWishedCharacters: wishlist.Missilis
         },
         PilgrimOverspec: {
-            Name: Character.Manufacturers.Pilgrim,
+            Name: manufacturers.Pilgrim,
             Container: document.getElementById("wishlist-pilgrim-overspec"),
             WishListImageElements: document.getElementById("wishlist-pilgrim-overspec")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => c.isInStandardPool && c.rarity === Character.Rarities.SSR && 
-                (c.manufacturer === Character.Manufacturers.Pilgrim || c.overspec)),
+            WishableCharacters: characters.filter((c) => c.isInStandardPool && c.rarity === rarities.SSR && 
+                (c.manufacturer === manufacturers.Pilgrim || c.overspec)),
             CurrentlyWishedCharacters: wishlist.Pilgrim
         }
     };
@@ -161,7 +190,7 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
         let clicked_before = false;
         let img = new Image();
 
-        img.addEventListener(ce, () => {
+        img.addEventListener("click", () => {
             if (clicked_before) {
                 img.style.opacity = 0.5;
                 character_selector.SelectedCharacters = character_selector.SelectedCharacters.filter((sc) => sc !== c.name);
@@ -178,7 +207,7 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
     });
     const toggleSelector = (manufacturer) => {
         const toggleWishlistOpacity = (toggle) => {
-            let all = [manufacturers.Elysion, manufacturers.Missilis, manufacturers.PilgrimOverspec, manufacturers.Tetra];
+            let all = [types.Elysion, types.Missilis, types.PilgrimOverspec, types.Tetra];
             if (toggle) 
                 all = all.filter((m) => m.Name !== manufacturer.Name);
 
@@ -194,10 +223,10 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
                 
                 assignCharactersToList(manufacturer);
                 setWishList({
-                    Pilgrim:  manufacturers.PilgrimOverspec.CurrentlyWishedCharacters,
-                    Elysion:  manufacturers.Elysion.CurrentlyWishedCharacters,
-                    Missilis: manufacturers.Missilis.CurrentlyWishedCharacters,
-                    Tetra:    manufacturers.Tetra.CurrentlyWishedCharacters
+                    Pilgrim:  types.PilgrimOverspec.CurrentlyWishedCharacters,
+                    Elysion:  types.Elysion.CurrentlyWishedCharacters,
+                    Missilis: types.Missilis.CurrentlyWishedCharacters,
+                    Tetra:    types.Tetra.CurrentlyWishedCharacters
                 });
             }
             character_selector.SelectedManufacturer = null;
@@ -205,15 +234,19 @@ document.getElementById("standard-multi-pull-button").addEventListener(ce, () =>
         }
         else {
             createProfileElements(manufacturer);
-            character_selector.Container.scrollIntoView();
+            character_selector.Container.scrollIntoView(scroll_params);
             character_selector.SelectedManufacturer = manufacturer.Name;
             toggleWishlistOpacity(true);
+
         }
         character_selector.SelectedCharacters = [];
     };
 
-    [manufacturers.Elysion, manufacturers.Tetra, manufacturers.Missilis, manufacturers.PilgrimOverspec].forEach((m) => {
-        m.Container.addEventListener(ce, () => toggleSelector(m));
+    [types.Elysion, types.Tetra, types.Missilis, types.PilgrimOverspec].forEach((m) => {
+        m.Container.addEventListener("click", () => toggleSelector(m));
         assignCharactersToList(m);
     });
 }
+
+document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 26).toLocaleDateString()}`;
+document.getElementById("secret").style.display = (Math.random() >= 0.8 ? "block" : "none");

@@ -4,6 +4,7 @@
     --banner-selection-control-backcolour: rgb(70, 70, 70);
     --text-font-family: Verdana, Geneva, Tahoma, sans-serif;
     --select-character-profile-backcolour: rgb(164, 211, 252);
+    --pull-button-backcolour: rgb(113, 186, 255);
 }
 
 
@@ -17,29 +18,31 @@ img {
 
 
 #selector {
-    top: 5px;
+    top: 6px;
     width: 100%;
+    margin: 5px;
+    padding-bottom: 16px;
     display: flex;
     position: fixed;
     overflow: scroll;
     justify-content:left;
 }
 .option-button {
-    border: 0;
     padding: 0;
-    width: 172px;
+    width: 176px;
     display: flex;
     cursor: pointer;
     min-width: 172px;
-    border-radius: 5px;
-    margin: 0 5px 0 5px;
+    border-radius: 3px;
+    margin: 0 2px 0 2px;
     align-items: center;
     justify-content: center;
+    border: 2px solid white;
+    background-color: var(--pull-button-backcolour);
 }
 .option-image-container {
-    width: 10%;
-    min-width: 32px;
     margin-right: 2%;
+    width: max(32px, 10%);
 }
 .option-text {
     margin: 0 0 0 2%;
@@ -57,21 +60,31 @@ img {
     width: 100%;
 }
 .banner-display {
-    width: 50%;
     margin: auto;
-    min-width: 300px;
+    padding: 50px;
+    overflow: auto;
+    width: max(300px, 50%);
+    text-wrap-mode: nowrap;
+    scroll-snap-type: x mandatory;
 }
 .banner-title {
     margin-bottom: 0;
     text-align: center;
-    color: var(--special-banner-title-colour);
     font: bold 4rem var(--text-font-family);
+    color: var(--special-banner-title-colour);
 }
 .banner-image {
-    margin-top: 5%;
+    margin-top: 10%;
+    cursor: pointer;  
     border-radius: 3px;
+    margin-right: 100px;
+    scroll-snap-align: center;
     animation: glow-pulse 5s ease-in-out infinite;
-    box-shadow: 0 0 25px 10px var(--special-banner-title-colour);       
+    box-shadow: 0 0 25px 10px var(--special-banner-title-colour);   
+}
+#current-banner-image, #standard-banner-image {
+    margin: 0;
+    scroll-snap-align: unset;
 }
 @keyframes glow-pulse {
     50% { box-shadow: 0 0 40px 10px rgb(253, 228, 86); }
@@ -80,61 +93,58 @@ img {
 
 
 .option-buttons {
-    width: 100%;
     display: flex;
     margin-top: 1%;
-    min-width: 400px; 
     overflow: scroll;
     padding: 20px 0 20px 0;
+    width: max(400px, 100%);
     justify-content: space-evenly;
 }
 .currency-text {
-    margin: 0 5px 0 0;
+    margin: 4px 10px 4px 0;
     display: inline-block;
 }
-.option-buttons button {
+.option-buttons a {
     color: white;
     cursor: pointer;
-    border-width: 1px;
+    border-width: 2px;
     align-items: center;
     margin: 0 5px 0 5px;
+    text-decoration: none;
     text-wrap-mode: nowrap;
+    border: 2px solid white;
     box-shadow: 0 10px rgb(17, 17, 17);
     font: bold 1rem var(--text-font-family);
 }
 .single-pull-button, .multi-pull-button {
     width: 160px;
     display: flex;
-    min-width: 160px;
     border-color: white;
     justify-content: space-between;
-    background-color: rgb(113, 186, 255);
+    background-color: var(--pull-button-backcolour);
 }
 .currency-image-container {
-    width: 30%;
     height: 100%;
-    min-width: 32px;
+    width: max(32px, 30%);
     position: relative;
     display: inline-block;
 }
 .currency-image {
     left: 5%;
-    top: -70%;
+    top: -50%;
     width: 130%;
     position: absolute;
 }
 .character-selection-button {
     width: 120px;
-    min-width: 120px;
     background-color: var(--banner-selection-control-backcolour);
 }
 .character-selection-button p {
     margin: 0;
 }
 #banner-search {
-    width: 25%;
+    width: max(300px, 25%);
     margin: auto;
-    min-width: 300px;
 }
 #banner-search-input {
     border: 0;
@@ -158,18 +168,16 @@ img {
     100% { box-shadow: 0 0 25px 10px var(--standard-banner-title-colour); }
 }
 #wishlist-container {
-    width: 60%;
     margin: auto;
     margin-top: 2%;
-    min-width: 260px;
+    width: max(260px, 60%);
     text-align: center;
 }
 .wishlist-manufacturer {
-    width: 48%;
     margin: 2px;
     cursor: pointer;
-    min-width: 250px;
     border-radius: 4px;
+    width: max(250px, 48%);
     display: inline-block;
     border: 2px solid var(--banner-selection-control-backcolour);
 }
@@ -200,13 +208,57 @@ img {
     overflow: scroll;
 }
 #wishlist-character-selector img {
-    width: 10%;
     margin: 2px;
     opacity: 0.5;
-    min-width: 64px;
     cursor: pointer;
     border-radius: 4px;
+    width: max(64px, 10%);
     display: inline-block;
     background-color: var(--select-character-profile-backcolour);
     border: 1px solid var(--banner-selection-control-backcolour);
+}
+
+#hidden-mold-container {
+    position: relative;
+    z-index: -1
+}
+#hidden-mold {
+    left: 10px;
+    z-index: -10;
+    opacity: 0.1;
+    display: none;
+    position: absolute;
+    bottom: calc(-30% + 50px);
+    width: clamp(100px, 30%, 200px);
+}
+#mold-padding {
+    text-align: center;
+    text-wrap-mode: wrap;
+    width: max(300px, 80%);
+    margin: 100px auto 200px auto;
+}
+.mold-item {
+    cursor: pointer;
+    display: inline-block;
+    width: clamp(200px, 49%, 300px);
+}
+
+#secret {
+    right: 10px;
+    bottom: 10px;
+    width: 300px;
+    z-index: -10;
+    height: 200px;
+    display: none;
+    opacity: 0.12;
+    position: fixed;
+    background: url(images/cursed-doro.png) no-repeat center;
+    background-size: contain;
+    box-shadow: 0 0 32px 32px rgb(0, 0, 0) inset;
+}
+
+#latest-update {
+    margin-left: 10px;
+    font: bold 1rem var(--text-font-family);
+    color: var(--banner-selection-control-backcolour);
 }

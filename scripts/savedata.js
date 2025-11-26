@@ -1,7 +1,9 @@
 const keys = {
     pulledCharacters: "pulled_characters",
-    wishedCharacters: "wished_characters"
-}
+    wishedCharacters: "wished_characters",
+    lastSelectedPageIndex: "last_selected_page_index",
+    lastSelectedBannerIndex: "last_selected_banner_index"
+};
 
 function keyExists(key) {
     return localStorage.getItem(key) !== null;
@@ -19,7 +21,10 @@ if (!keyExists(keys.wishedCharacters)) {
             Tetra:    ["Blanc", "Noir", "Bready", "Crust", "Rupee"]
     }));
 }
-
+if (!keyExists(keys.lastSelectedBannerIndex))
+    localStorage.setItem(keys.lastSelectedBannerIndex, 1);
+if (!keyExists(keys.lastSelectedPageIndex))
+    localStorage.setItem(keys.lastSelectedPageIndex, 0);
 
 
 function setWishList(character_object) {
@@ -30,6 +35,18 @@ function getWishList() {
 }
 function getPullList() {
     return JSON.parse(localStorage.getItem(keys.pulledCharacters));
+}
+function setLastSelectedBannerIndex(index) {
+    localStorage.setItem(keys.lastSelectedBannerIndex, index);
+}
+function getLastSelectedBannerIndex() {
+    return Number(localStorage.getItem(keys.lastSelectedBannerIndex));
+}
+function setLastSelectedPageIndex(index) {
+    localStorage.setItem(keys.lastSelectedPageIndex, index);
+}
+function getLastSelectedPageIndex() {
+    return Number(localStorage.getItem(keys.lastSelectedPageIndex));
 }
 
 function characterInList(character_name, list) {
@@ -83,5 +100,9 @@ export {
     setWishList,
     characterOnWishlist,
     getPullList,
-    getCharacterPullCount
+    getCharacterPullCount,
+    setLastSelectedBannerIndex,
+    getLastSelectedBannerIndex,
+    setLastSelectedPageIndex,
+    getLastSelectedPageIndex
 };

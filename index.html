@@ -9,7 +9,7 @@
 <body>
     <nav id="selector">
         <button id="current-banner-button" class="option-button">
-            <p class="option-text">Newest Banner</p>
+            <p class="option-text">Latest Banner</p>
             <div class="option-image-container">
                 <img class="option-image" src="images/pull_assets/currency/special_recruit_ticket.webp">
             </div>
@@ -26,129 +26,151 @@
                 <img class="option-image" src="images/pull_assets/currency/standard_recruit_ticket.webp">
             </div>
         </button>
-        <button id="currency-button" class="option-button" onclick="localStorage.clear();">
+        <button id="molds-button" class="option-button">
+            <p class="option-text">Molds</p>
+            <div class="option-image-container">
+                <img class="option-image" src="images/mold/ssr-mold.webp">
+            </div>
+        </button>
+        <button id="currency-button" class="option-button">
             <p class="option-text">Clear Data</p>
             <div class="option-image-container">
                 <img class="option-image" src="images/pull_assets/currency/gem.webp">
             </div>
         </button>
     </nav>
-    <div id="current-banner-container">
-        <h1 id="current-banner-title" class="banner-title">LIBERALIO</h1>
+    <section id="current-banner-container">
+        <h1 id="current-banner-title" class="banner-title"></h1>
         <div id="current-banner-display" class="banner-display">
-            <img id="current-banner-image" class="banner-image" src="images/banners/liberalio.png" title="Rate Up: Liberalio">
+            <img id="current-banner-image" class="banner-image" src="" title="">
         </div>
         <div id="current-banner-options" class="option-buttons">
-            <button id="rate-up-single-pull-button" class="single-pull-button">
+            <a id="rate-up-single-pull-button" class="single-pull-button" href="">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/special_recruit_ticket.webp" title="Special x1">
                 </div>
                 <p class="single-pull-currency currency-text">Recruit 1</p>
-            </button>
-            <button id="rate-up-multi-pull-button" class="multi-pull-button">
+            </a>
+            <a id="rate-up-multi-pull-button" class="multi-pull-button" href="">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/special_recruit_ticket.webp" title="Special x10">
                 </div>
                 <p class="multi-pull-currency currency-text">Recruit 10</p>
-            </button>
+            </a>
         </div>
-    </div>
-    <div id="previous-banners-container">
+    </section>
+    <section id="previous-banners-container">
         <div id="previous-banner">
-            <h1 class="banner-title">LIBERALIO</h1>
-            <div class="banner-display">
-                <img class="banner-image" src="images/banners/liberalio.png" title="Rate Up: Liberalio">
+            <div id="previous-banner-display" class="banner-display">
+                <!--<img id="1" class="banner-image" src="images/banners/liberalio.png" title="">-->
             </div>
         </div>
         <div id="previous-banner-recruitment-options" class="option-buttons">
-            <button id="previous-banner-button" class="character-selection-button">
-                <p id="previous-banner-name">&lt;&lt; Previous</p>
-            </button>
-            <button class="single-pull-button">
+            <a class="single-pull-button" href="">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/special_recruit_ticket.webp" title="Special x1">
                 </div>
                 <p class="single-pull-currency currency-text">Recruit 1</p>
-            </button>
-            <button class="multi-pull-button">
+            </a>
+            <a class="multi-pull-button" href="">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/special_recruit_ticket.webp" title="Special x10">
                 </div>
                 <p class="multi-pull-currency currency-text">Recruit 10</p>
-            </button>
-            <button id="next-banner-button" class="character-selection-button">
-                <p id="next-banner-name">Next &gt;&gt;</p>
-            </button>
+            </a>
         </div>
         <div id="banner-search">
             <input id="banner-search-input" type="text" placeholder="Search for banner..">
         </div>
-    </div>
-    <div id="standard-banner-container">
+    </section>
+    <section id="standard-banner-container">
         <h1 id="standard-banner-title" class="banner-title">Normal Recruitment</h1>
         <div id="standard-banner-display" class="banner-display">
             <img id="standard-banner-image" class="banner-image" src="images/banners/standard.png" title="Standard Banner Recruitment">
         </div>
         <div id="standard-banner-options" class="option-buttons">
-            <button id="standard-single-pull-button" class="single-pull-button">
+            <a id="standard-single-pull-button" class="single-pull-button" href="">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/standard_recruit_ticket.webp" title="Standard x1">
                 </div>
                 <p class="single-pull-currency currency-text">Recruit 1</p>
-            </button>
-            <button id="standard-multi-pull-button" class="multi-pull-button">
+            </a>
+            <a id="standard-multi-pull-button" class="multi-pull-button" href="">
                 <div class="currency-image-container">
                     <img class="currency-image" src="images/pull_assets/currency/standard_recruit_ticket.webp" title="Standard x10">
                 </div>
                 <p class="multi-pull-currency currency-text">Recruit 10</p>
-            </button>
+            </a>
         </div>
         <div id="wishlist-container">
             <div id="wishlist-manufacturers">
                 <div id="wishlist-elysion" class="wishlist-manufacturer">
                     <p>ELYSION</p>
                     <div class="character-display">
-                        <img id="wishlist-elysion-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-elysion-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-elysion-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-elysion-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-elysion-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-elysion-1" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-elysion-2" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-elysion-3" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-elysion-4" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-elysion-5" class="wishlist-character-image" src="" title="">
                     </div>
                 </div>
                 <div id="wishlist-tetra" class="wishlist-manufacturer">
                     <p>TETRA</p>
                     <div class="character-display">
-                        <img id="wishlist-tetra-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-tetra-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-tetra-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-tetra-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-tetra-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-tetra-1" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-tetra-2" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-tetra-3" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-tetra-4" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-tetra-5" class="wishlist-character-image" src="" title="">
                     </div>
                 </div>
                 <div id="wishlist-missilis" class="wishlist-manufacturer">
                     <p>MISSILIS</p>
                     <div class="character-display">
-                        <img id="wishlist-missilis-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-missilis-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-missilis-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-missilis-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-missilis-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-missilis-1" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-missilis-2" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-missilis-3" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-missilis-4" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-missilis-5" class="wishlist-character-image" src="" title="">
                     </div>
                 </div>
                 <div id="wishlist-pilgrim-overspec" class="wishlist-manufacturer">
                     <p>PILGRIM / OVERSPEC</p>
                     <div class="character-display">
-                        <img id="wishlist-pilgrim-overspec-1" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-pilgrim-overspec-2" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-pilgrim-overspec-3" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-pilgrim-overspec-4" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
-                        <img id="wishlist-pilgrim-overspec-5" class="wishlist-character-image" src="images/character/profile/rapi.png" title="Rapi">
+                        <img id="wishlist-pilgrim-overspec-1" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-pilgrim-overspec-2" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-pilgrim-overspec-3" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-pilgrim-overspec-4" class="wishlist-character-image" src="" title="">
+                        <img id="wishlist-pilgrim-overspec-5" class="wishlist-character-image" src="" title="">
                     </div>
                 </div>
             </div>
             <div id="wishlist-character-selector"></div>
         </div>
-    </div>
+    </section>
+    <section id="mold-container">
+        <div id="mold-padding">
+            <a id="pilgrim-mold" class="mold-item">
+                <img src="images/mold/pilgrim-mold.webp" title="Pilgrim Mold">
+            </a>
+            <a id="tetra-mold" class="mold-item">
+                <img src="images/mold/tetra-mold.webp" title="Tetra Mold">
+            </a>
+            <a id="elysion-mold" class="mold-item">
+                <img src="images/mold/elysion-mold.webp" title="Elysion Mold">
+            </a>
+            <a id="missilis-mold" class="mold-item">
+                <img src="images/mold/missilis-mold.png" title="Missilis Mold">
+            </a>
+        </div>
+        <div id="hidden-mold-container">
+            <img id="hidden-mold" src="images/mold/belorta-mold.webp">
+        </div>
+    </section>
+    <div id="secret"></div>
+    <footer>
+        <p id="latest-update"></p>
+    </footer>
     <script type="module" src="scripts/index-script.js"></script>
 </body>
 </html>
