@@ -1,4 +1,4 @@
-import { characters, rarities } from './chars.js';
+import { characters, manufacturers, rarities } from './chars.js';
 import { result_elements, lineup_elements, standard_pull, special_pull, mold_pull  } from './gacha.js';
 import { hasCharacter, addCharacterToCollection, getCharacterPullCount } from './savedata.js';
 
@@ -142,10 +142,10 @@ if (banner_parameters.IsMoldPull || banner_parameters.IsSinglePull)
 if (banner_parameters.IsMoldPull) {
     const capitaliseFirstLetter = (text) => text.slice(0, 1).toUpperCase() + text.slice(1);
     const isManufacturerValid = (manufacturer) => {
-        const manufacturers = Object.entries(manufacturers)
+        const manufacturers_entries = Object.entries(manufacturers)
             .map((e) => e[1].toLowerCase())
             .filter((m) => m !== manufacturers.Abnormal.toLowerCase());
-        return manufacturers.find((m) => m === manufacturer) != null;
+        return manufacturers_entries.find((m) => m === manufacturer) != null;
     };
     
     const manufacturer = query_parameters.get(banner_keys.Mold);
