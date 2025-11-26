@@ -2,7 +2,7 @@ import { getWishList, setWishList, setLastSelectedBannerIndex, getLastSelectedBa
 import { Character, characters } from './chars.js';
 
 
-const gachaUrl = "gacha.html";
+const gachaUrl = "gacha.html?standard";
 const banners = characters.filter((c) => c.hasBanner).map((c) => {
     return {
         CharacterName: c.name,
@@ -34,7 +34,7 @@ const searchParentFromChild = (child_element, parent_tag_name, max_search_depth)
 
 
 document.getElementById("standard-multi-pull-button").href = gachaUrl;
-document.getElementById("standard-single-pull-button").href = `${gachaUrl}?singlepull`;
+document.getElementById("standard-single-pull-button").href = `${gachaUrl}&singlepull`;
 
 {   
     const newest = banners[0]; 
