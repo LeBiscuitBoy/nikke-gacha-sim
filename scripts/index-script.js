@@ -242,5 +242,5 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?singl
     });
 }
 
-document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 25).toLocaleDateString()}`;
-document.getElementById("secret").style.display = (Math.random() > 0.75 ? "block" : "none");
+document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 26).toLocaleDateString()}`;
+document.getElementById("secret").style.display = (Math.random() > 0.8 ? "block" : "none");
