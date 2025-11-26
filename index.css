@@ -218,8 +218,9 @@ img {
     border: 1px solid var(--banner-selection-control-backcolour);
 }
 
-#mold-container {
+#hidden-mold-container {
     position: relative;
+    z-index: -1
 }
 #hidden-mold {
     left: 10px;
