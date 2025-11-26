@@ -225,6 +225,7 @@ img {
     left: 10px;
     z-index: -10;
     opacity: 0.1;
+    display: none;
     position: absolute;
     bottom: calc(-30% + 50px);
     width: clamp(100px, 30%, 200px);
