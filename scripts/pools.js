@@ -1,15 +1,15 @@
-import { Character, characters } from './chars.js';
+import { characters, rarities, manufacturers } from './chars.js';
 import { characterOnWishlist } from './savedata.js';
 
 
 
 const standard_pool_filter = (character, rarity) => character.isInStandardPool && character.rarity === rarity;
-const is_special_character = (character) => character.manufacturer === Character.Manufacturers.Pilgrim || character.overspec;
+const is_special_character = (character) => character.manufacturer === manufacturers.Pilgrim || character.overspec;
 
 const pools = {
-    R: characters.filter((c) => standard_pool_filter(c, Character.Rarities.R)),
-    SR: characters.filter((c) => standard_pool_filter(c, Character.Rarities.SR)),
-    SSR: characters.filter((c) => standard_pool_filter(c, Character.Rarities.SSR))
+    R: characters.filter((c) => standard_pool_filter(c, rarities.R)),
+    SR: characters.filter((c) => standard_pool_filter(c, rarities.SR)),
+    SSR: characters.filter((c) => standard_pool_filter(c, rarities.SSR))
 }
 
 
@@ -24,7 +24,7 @@ function getManufacturerMoldPool(manufacturer) {
             Rate: 30
         },
         SSR: {
-            Characters: (manufacturer !== Character.Manufacturers.Pilgrim) ? 
+            Characters: (manufacturer !== manufacturers.Pilgrim) ? 
                 pools.SSR.filter((c) => c.manufacturer === manufacturer && !is_special_character(c)) : 
                 pools.SSR.filter((c) => is_special_character(c)),
             Rate: 50

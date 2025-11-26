@@ -1,4 +1,4 @@
-import { Character, characters } from './chars.js';
+import { characters, rarities } from './chars.js';
 import { result_elements, lineup_elements, standard_pull, special_pull, mold_pull  } from './gacha.js';
 import { hasCharacter, addCharacterToCollection, getCharacterPullCount } from './savedata.js';
 
@@ -43,16 +43,16 @@ const getCardGlowImage = (rarity, is_bottom, img = null) => {
     if (is_bottom)
         img.classList.add("single-sparkle-bottom");
 
-    img.src = (rarity === Character.Rarities.R) ?
+    img.src = (rarity === rarities.R) ?
         `${asset_url_prefix}/glow_none.png` :
         `${asset_url_prefix}/glow_${rarity.toLowerCase()}.png`;
     return img;
 };
 const populateCard = (card, character, from_single_pull) => {
     const showSpareBody = (rarity, pull_count) => 
-        (rarity === Character.Rarities.R && pull_count <= 2) || 
-        (rarity === Character.Rarities.SR && pull_count <= 3) || 
-        (rarity === Character.Rarities.SSR && pull_count <= 11);
+        (rarity === rarities.R && pull_count <= 2) || 
+        (rarity === rarities.SR && pull_count <= 3) || 
+        (rarity === rarities.SSR && pull_count <= 11);
 
     setImageDetail(card.character_card, `${character_url_prefix}/${character.characterCardImage}`, character.name);
     card.sparkle = getCardGlowImage(character.rarity, false, card.sparkle);
@@ -63,7 +63,7 @@ const populateCard = (card, character, from_single_pull) => {
         card.spare_body.style.bottom = "27%";
     }
 
-    if (character.rarity !== Character.Rarities.R) {
+    if (character.rarity !== rarities.R) {
         const rarity_key = character.rarity.toLowerCase();
         card.character_card.classList.add(card.id <= 5 ? `${rarity_key}-top` : `${rarity_key}-bottom`);
     }
@@ -106,7 +106,7 @@ const handleIntroDisplay = (pulls) => {
 
         element.icon.src = getIconForRarity(pulls[pull].rarity);
         element.self.style.visibility = "visible";
-        element.glow.style.visibility = pulls[pull].rarity === Character.Rarities.SSR ? "visible" : "hidden";
+        element.glow.style.visibility = pulls[pull].rarity === rarities.SSR ? "visible" : "hidden";
         
         pull += 1;
         if (pull === pulls.length) {
@@ -142,9 +142,9 @@ if (banner_parameters.IsMoldPull || banner_parameters.IsSinglePull)
 if (banner_parameters.IsMoldPull) {
     const capitaliseFirstLetter = (text) => text.slice(0, 1).toUpperCase() + text.slice(1);
     const isManufacturerValid = (manufacturer) => {
-        const manufacturers = Object.entries(Character.Manufacturers)
+        const manufacturers = Object.entries(manufacturers)
             .map((e) => e[1].toLowerCase())
-            .filter((m) => m !== Character.Manufacturers.Abnormal.toLowerCase());
+            .filter((m) => m !== manufacturers.Abnormal.toLowerCase());
         return manufacturers.find((m) => m === manufacturer) != null;
     };
     
@@ -158,7 +158,7 @@ else if (banner_parameters.IsRateUp) {
     const getRateUpCharacter = () => {
         const char = query_parameters.has(banner_keys.RateUp) ? characters.find((c) => 
             c.bannerName === query_parameters.get(banner_keys.RateUp).toLowerCase() &&
-            c.rarity == Character.Rarities.SSR && 
+            c.rarity == rarities.SSR && 
             c.hasBanner) : null;
         return char != null ? char : null;
     }

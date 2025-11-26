@@ -1,5 +1,5 @@
 import { getWishList, setWishList, setLastSelectedBannerIndex, getLastSelectedBannerIndex, setLastSelectedPageIndex, getLastSelectedPageIndex } from './savedata.js';
-import { Character, characters } from './chars.js';
+import { characters, rarities, manufacturers } from './chars.js';
 
 
 const gachaUrl = "gacha.html";
@@ -126,40 +126,40 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
     const wishlist = getWishList();
     const max_wishlist_length = 5;
     const charFilter = (c, manufacturer) => c.isInStandardPool && c.manufacturer === manufacturer && 
-        c.rarity === Character.Rarities.SSR && !c.overspec;
+        c.rarity === rarities.SSR && !c.overspec;
 
-    const manufacturers = {
+    const types = {
         Elysion: {
-            Name: Character.Manufacturers.Elysion,
+            Name: manufacturers.Elysion,
             Container: document.getElementById("wishlist-elysion"),
             WishListImageElements: document.getElementById("wishlist-elysion")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => charFilter(c, Character.Manufacturers.Elysion)),
+            WishableCharacters: characters.filter((c) => charFilter(c, manufacturers.Elysion)),
             CurrentlyWishedCharacters: wishlist.Elysion
         },
         Tetra: {
-            Name: Character.Manufacturers.Tetra,
+            Name: manufacturers.Tetra,
             Container: document.getElementById("wishlist-tetra"),
             WishListImageElements: document.getElementById("wishlist-tetra")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => charFilter(c, Character.Manufacturers.Tetra)),
+            WishableCharacters: characters.filter((c) => charFilter(c, manufacturers.Tetra)),
             CurrentlyWishedCharacters: wishlist.Tetra
         },
         Missilis: {
-            Name: Character.Manufacturers.Missilis,
+            Name: manufacturers.Missilis,
             Container: document.getElementById("wishlist-missilis"),
             WishListImageElements: document.getElementById("wishlist-missilis")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => charFilter(c, Character.Manufacturers.Missilis)),
+            WishableCharacters: characters.filter((c) => charFilter(c, manufacturers.Missilis)),
             CurrentlyWishedCharacters: wishlist.Missilis
         },
         PilgrimOverspec: {
-            Name: Character.Manufacturers.Pilgrim,
+            Name: manufacturers.Pilgrim,
             Container: document.getElementById("wishlist-pilgrim-overspec"),
             WishListImageElements: document.getElementById("wishlist-pilgrim-overspec")
                 .getElementsByClassName("character-display")[0].getElementsByClassName("wishlist-character-image"),
-            WishableCharacters: characters.filter((c) => c.isInStandardPool && c.rarity === Character.Rarities.SSR && 
-                (c.manufacturer === Character.Manufacturers.Pilgrim || c.overspec)),
+            WishableCharacters: characters.filter((c) => c.isInStandardPool && c.rarity === rarities.SSR && 
+                (c.manufacturer === manufacturers.Pilgrim || c.overspec)),
             CurrentlyWishedCharacters: wishlist.Pilgrim
         }
     };
@@ -201,7 +201,7 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
     });
     const toggleSelector = (manufacturer) => {
         const toggleWishlistOpacity = (toggle) => {
-            let all = [manufacturers.Elysion, manufacturers.Missilis, manufacturers.PilgrimOverspec, manufacturers.Tetra];
+            let all = [types.Elysion, types.Missilis, types.PilgrimOverspec, types.Tetra];
             if (toggle) 
                 all = all.filter((m) => m.Name !== manufacturer.Name);
 
@@ -217,10 +217,10 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
                 
                 assignCharactersToList(manufacturer);
                 setWishList({
-                    Pilgrim:  manufacturers.PilgrimOverspec.CurrentlyWishedCharacters,
-                    Elysion:  manufacturers.Elysion.CurrentlyWishedCharacters,
-                    Missilis: manufacturers.Missilis.CurrentlyWishedCharacters,
-                    Tetra:    manufacturers.Tetra.CurrentlyWishedCharacters
+                    Pilgrim:  types.PilgrimOverspec.CurrentlyWishedCharacters,
+                    Elysion:  types.Elysion.CurrentlyWishedCharacters,
+                    Missilis: types.Missilis.CurrentlyWishedCharacters,
+                    Tetra:    types.Tetra.CurrentlyWishedCharacters
                 });
             }
             character_selector.SelectedManufacturer = null;
@@ -236,7 +236,7 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
         character_selector.SelectedCharacters = [];
     };
 
-    [manufacturers.Elysion, manufacturers.Tetra, manufacturers.Missilis, manufacturers.PilgrimOverspec].forEach((m) => {
+    [types.Elysion, types.Tetra, types.Missilis, types.PilgrimOverspec].forEach((m) => {
         m.Container.addEventListener("click", () => toggleSelector(m));
         assignCharactersToList(m);
     });
