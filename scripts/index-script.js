@@ -38,7 +38,7 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?singl
 
 {   
     const newest = banners[0]; 
-    const url = `${gachaUrl}?character=${newest.BannerName}`;
+    const url = `${gachaUrl}?rate-up=${newest.BannerName}`;
     
     document.getElementById("current-banner-title").innerText = newest.CharacterName.toUpperCase();
     document.getElementById("rate-up-single-pull-button").href = `${url}&singlepull`;
@@ -92,8 +92,8 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?singl
         const banner_index = idOfLeftMostBannerImage();
         const banner = banners[banner_index];
 
-        buttons[1].href = `${gachaUrl}?character=${banner.BannerName}`;
-        buttons[0].href = `${gachaUrl}?character=${banner.BannerName}&singlepull`;
+        buttons[1].href = `${gachaUrl}?rate-up=${banner.BannerName}`;
+        buttons[0].href = `${gachaUrl}?rate-up=${banner.BannerName}&singlepull`;
 
         if (banner_index !== getLastSelectedBannerIndex())
             setLastSelectedBannerIndex(banner_index);
