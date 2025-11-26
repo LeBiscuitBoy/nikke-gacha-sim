@@ -218,6 +218,29 @@ img {
     border: 1px solid var(--banner-selection-control-backcolour);
 }
 
+#mold-container {
+    position: relative;
+}
+#hidden-mold {
+    left: 10px;
+    z-index: -10;
+    opacity: 0.1;
+    position: absolute;
+    bottom: calc(-30% + 50px);
+    width: clamp(100px, 30%, 200px);
+}
+#mold-padding {
+    text-align: center;
+    text-wrap-mode: wrap;
+    width: max(300px, 80%);
+    margin: 100px auto 200px auto;
+}
+.mold-item {
+    cursor: pointer;
+    display: inline-block;
+    width: clamp(200px, 49%, 300px);
+}
+
 #secret {
     right: 10px;
     bottom: 10px;

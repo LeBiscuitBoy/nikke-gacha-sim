@@ -17,7 +17,8 @@ const navigation_page_ids = {
     NewestBanner: 0,
     PreviousBanners: 1,
     StandardBanner: 2,
-    ClearData: 3
+    Mold: 3,
+    ClearData: 4
 };
 const setImage = (img, url, title) => {
     img.src = url,
@@ -35,6 +36,7 @@ const searchParentFromChild = (child_element, parent_tag_name, max_search_depth)
 
 document.getElementById("standard-multi-pull-button").href = `${gachaUrl}?standard`;
 document.getElementById("standard-single-pull-button").href = `${gachaUrl}?standard&singlepull`;
+Array.from(document.getElementById("mold-padding").children).forEach((e) => e.href = `${gachaUrl}?mold=${e.id.slice(0, e.id.indexOf("-"))}`);
 
 {   
     const newest = banners[0]; 
@@ -51,7 +53,8 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
     const tabs = [
         document.getElementById("current-banner-container"), 
         document.getElementById("previous-banners-container"), 
-        document.getElementById("standard-banner-container")
+        document.getElementById("standard-banner-container"),
+        document.getElementById("mold-container")
     ];
     const showIndexTab = (tab_index) => tabs.forEach((t, i) => t.style.display = (i === tab_index) ? "block" : "none");
 
@@ -68,6 +71,9 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
             else {
                 showIndexTab(i);
                 setLastSelectedPageIndex(i);
+
+                if (i === navigation_page_ids.Mold)
+                    document.getElementById("hidden-mold").style.display = (Math.random() >= 0.8 ? "block" : "none");
             }
         });
     });
@@ -243,4 +249,4 @@ document.getElementById("standard-single-pull-button").href = `${gachaUrl}?stand
 }
 
 document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 26).toLocaleDateString()}`;
-document.getElementById("secret").style.display = (Math.random() > 0.8 ? "block" : "none");
+document.getElementById("secret").style.display = (Math.random() >= 0.8 ? "block" : "none");
