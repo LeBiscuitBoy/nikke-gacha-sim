@@ -7,7 +7,6 @@
     --body-background-colour: rgb(19, 19, 19);
 }
 
-
 body {
     margin: 0;
     overflow-x: hidden;
@@ -18,8 +17,7 @@ img {
     display: inline-block;
 }
 button {
-    font: 1rem var(--text-font-family);
-    box-sizing: content-box;
+    font: bold 1rem var(--text-font-family);
     background-color: unset;
     cursor: pointer;
     border: 0;
@@ -87,11 +85,15 @@ button {
         width: 100%;
     }
     .navigation-button {
+        font: 1rem var(--text-font-family);
         justify-content: end;
         padding: 10px 0 10px 0;
         width: 100%;
     }
     .navigation-button img {
         padding-right: 2px
+    }
+    li:last-child button {
+        border-bottom-left-radius: 10px;
     }
 }
