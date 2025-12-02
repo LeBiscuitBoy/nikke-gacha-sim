@@ -70,11 +70,11 @@ function getRateUpPool(rate_up_character) {
         },
         SSR: {
             Characters: pools.SSR.filter((c) => special_pool_filter(c) && !is_special_character(c)),
-            Rate: rate_up_special ? 2.5 : 1.75
+            Rate: rate_up_special ? 2.25 : 1.5
         },
         Special: {
             Characters: pools.SSR.filter((c) => special_pool_filter(c) && is_special_character(c)),
-            Rate: rate_up_special ? 0.5 : 0.25
+            Rate: rate_up_special ? 0.75 : 0.5
         },
         RateUp: {
             Character: rate_up_character,
