@@ -1,0 +1,97 @@
+:root {
+    --text-font-family: Verdana, Geneva, Tahoma, sans-serif;
+    --navigation-button-hover-colour: hsl(0, 0%, 60%);
+    --navigation-button-font-colour: hsl(0, 0%, 91%);
+    --navigation-button-colour: hsl(0, 0%, 38%);
+    --mobile-nav-menu-width: 200px;
+    --body-background-colour: rgb(19, 19, 19);
+}
+
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: var(--body-background-colour);
+}
+img {
+    width: 100%;
+    display: inline-block;
+}
+button {
+    font: 1rem var(--text-font-family);
+    box-sizing: content-box;
+    background-color: unset;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+}
+
+#toggle-navigation-bar-btn {
+    width: clamp(40px, calc(10px + 10vw), 84px);
+    position: absolute;
+    display: none;
+    z-index: 5;
+    right: 5%;
+}
+
+#navigation-bar {
+    position: fixed;
+    background-color: var(--navigation-button-colour);
+    width: 100%;
+}
+#navigation-bar ul {
+    margin: 0;
+    padding: 0;
+    text-align: end;
+    list-style: none;
+}
+#navigation-bar li {
+    display: inline-block;
+}
+.navigation-button {
+    background-color: var(--navigation-button-colour);
+    color: var(--navigation-button-font-colour);
+    transition: background-color 250ms;
+    justify-content: center;
+    text-wrap-mode: nowrap;
+    align-items: center;
+    display: flex;
+    width: 190px;
+    
+}
+.navigation-button:hover {
+    background-color: var(--navigation-button-hover-colour);
+}
+.navigation-button img {
+    width: 40px;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 970px) {
+    #toggle-navigation-bar-btn, #navigation-bar li {
+        display: block;
+    }
+    #toggle-navigation-bar-btn:focus + #navigation-option-container {
+        right: 0;
+    }
+    #navigation-bar {
+        width: var(--mobile-nav-menu-width);
+        position: relative;
+        margin-left: auto;
+    }
+    #navigation-option-container {
+        right: calc(var(--mobile-nav-menu-width) * -1);
+        transition: right 200ms;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+    }
+    .navigation-button {
+        justify-content: end;
+        padding: 10px 0 10px 0;
+        width: 100%;
+    }
+    .navigation-button img {
+        padding-right: 2px
+    }
+}
