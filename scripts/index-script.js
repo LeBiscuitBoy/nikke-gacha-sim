@@ -248,5 +248,5 @@ Array.from(document.getElementById("mold-padding").children).forEach((e) => e.hr
     });
 }
 
-document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 10, 26).toLocaleDateString()}`;
+document.getElementById("latest-update").innerHTML = `Latest update: ${new Date(2025, 11, 1).toLocaleDateString()}`;
 document.getElementById("secret").style.display = (Math.random() >= 0.8 ? "block" : "none");
