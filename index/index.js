@@ -107,6 +107,12 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => {
         const search_box = document.getElementById("previous-banner-selected-character-text");
         const previous_banners = banners.filter((b) => b.StartDate < banners[0].StartDate);
 
+        const getBannerElementFromIndex = (index) => document.getElementById(`${previous_banners_container.id}-${index}`);
+        const updateDisplay = (banner_index) => {
+            getBannerElementFromIndex(banner_index).scrollIntoView(scroll_params);
+            selected_char_text.value = previous_banners[banner_index].Character;
+        };
+
         previous_banners.forEach((lb, i) => previous_banners_container.appendChild(createNewBanner(lb, previous_banners_container.id, i)));
         setAnchorLocations(pull_bar, previous_banners[0].Name);
 
@@ -118,16 +124,12 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => {
             }
 
             const index = getIndexIdNumber(ev.target);
-            const selected_banner = previous_banners[index];
-
-            selected_char_text.value = selected_banner.Character
+            updateDisplay(index);
             setLastSelectedBannerIndex(index);
-
-            setAnchorLocations(pull_bar, selected_banner.Name);
+            setAnchorLocations(pull_bar,  previous_banners[index].Name);
             toggleBarOpacity(pull_bar.Bar, true);
         });
 
-        const getBannerElementFromIndex = (index) => document.getElementById(`${previous_banners_container.id}-${index}`);
         search_box.addEventListener("change", () => {
             if (search_box.value.length < 3) return;
             const banner_index = previous_banners.findLastIndex((b) => b.Character.toLowerCase().includes(search_box.value.toLowerCase()));
@@ -136,9 +138,9 @@ const banners = characters.filter((c) => c.hasBanner).map((c) => {
             toggleBarOpacity(pull_bar.Bar, true);
             setAnchorLocations(pull_bar, previous_banners[banner_index].Name);
             setLastSelectedBannerIndex(banner_index);
-            getBannerElementFromIndex(banner_index).scrollIntoView(scroll_params);
+            updateDisplay(banner_index);
         });
 
-        getBannerElementFromIndex(getLastSelectedBannerIndex()).scrollIntoView(scroll_params);
+        updateDisplay(getLastSelectedBannerIndex());
     }
 }
