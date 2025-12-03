@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index-mob.css">
     <title>NIKKE Gacha Simulator</title>
 </head>
 <body>
@@ -46,7 +47,53 @@
             </ul>
         </div>
     </nav>
-    <div style="width: 300px; height: 1000px;"></div>   
+    <p id="last-update-info">Latest Update: 3/12/2025</p>
+    <section id="newest-banners">
+        <div id="newest-banners-container" class="banners-container">
+            <!--
+            <div id="newest-banner-container-1" class="banner-container">
+                <img src="../images/banners/2b.png" title="2b">
+            </div>
+            -->
+        </div>
+        <div id="newest-banner-selected-character">
+            <p id="newest-banner-selected-character-text"></p>
+        </div>
+        <div id="newest-banners-pull-bar" class="pull-bar">
+            <a id="newest-single-pull" href="../gacha.html?singlepull" class="pull-bar-anchor">
+                <img src="../images/pull_assets/currency/special_recruit_ticket.webp" title="Special Recruit 1" class="pull-bar-image">
+                Recruit 1
+            </a>
+            <a id="newest-multi-pull" href="../gacha.html" class="pull-bar-anchor">
+                <img src="../images/pull_assets/currency/special_recruit_ticket.webp" title="Special Recruit 10" class="pull-bar-image">
+                Recruit 10
+            </a>
+        </div>
+    </section>
+    <section id="previous-banners">
+        <div id="previous-banners-container" class="banners-container">
+            <!--
+            <div id="previous-banner-container-1" class="banner-container">
+                <img src="../images/banners/2b.png" title="2b">
+            </div>
+            -->
+        </div>
+        <div id="previous-banner-selected-character">
+            <input type="text" id="previous-banner-selected-character-text" placeholder="Character"></text>
+        </div>
+        <div id="previous-banners-pull-bar" class="pull-bar">
+            <a id="previous-single-pull" href="../gacha.html?singlepull" class="pull-bar-anchor">
+                <img src="../images/pull_assets/currency/special_recruit_ticket.webp" title="Special Recruit 1" class="pull-bar-image">
+                Recruit 1
+            </a>
+            <a id="previous-multi-pull" href="../gacha.html" class="pull-bar-anchor">
+                <img src="../images/pull_assets/currency/special_recruit_ticket.webp" title="Special Recruit 10" class="pull-bar-image">
+                Recruit 10
+            </a>
+        </div>
+    </section>
+    <section id="standard-banner"></section>
+    <section id="manufacturer-molds"></section>
     <script src="index.js" type="module"></script>
 </body>
 </html>
