@@ -46,7 +46,7 @@ button {
 #navigation-bar li {
     display: inline-block;
 }
-.navigation-button {
+.navigation-btn {
     background-color: var(--navigation-button-colour);
     color: var(--navigation-button-font-colour);
     transition: background-color 250ms;
@@ -57,43 +57,53 @@ button {
     width: 190px;
     
 }
-.navigation-button:hover {
+.navigation-btn:hover {
     background-color: var(--navigation-button-hover-colour);
 }
-.navigation-button img {
+.navigation-btn img {
     width: 40px;
     margin-left: 10px;
 }
 
 @media only screen and (max-width: 970px) {
+    #toggle-navigation-bar-btn {
+        transition: opacity 100ms;
+    }
     #toggle-navigation-bar-btn, #navigation-bar li {
         display: block;
     }
-    #toggle-navigation-bar-btn:focus + #navigation-option-container {
-        right: 0;
-    }
     #navigation-bar {
         width: var(--mobile-nav-menu-width);
-        position: relative;
-        margin-left: auto;
+        position: fixed;
+        right: 0;
     }
     #navigation-option-container {
+        position: relative;
+        opacity: 0.9;
+    }
+    #navigation-option-container ul {
         right: calc(var(--mobile-nav-menu-width) * -1);
         transition: right 200ms;
         position: absolute;
         z-index: 10;
         width: 100%;
     }
-    .navigation-button {
+    .navigation-btn{
         font: 1rem var(--text-font-family);
         justify-content: end;
         padding: 10px 0 10px 0;
         width: 100%;
     }
-    .navigation-button img {
+    .navigation-btn img {
         padding-right: 2px
     }
     li:last-child button {
         border-bottom-left-radius: 10px;
+    }
+    #toggle-navigation-bar-btn:focus {
+        opacity: 0;
+    }
+    #toggle-navigation-bar-btn:focus + #navigation-option-container ul {
+        right: 0;
     }
 }
